@@ -1,0 +1,24 @@
+# models/saved/.gitkeep
+# =====================
+# This file exists solely to make Git track the models/saved/ directory.
+#
+# Purpose of models/saved/:
+#   Prophet, K-Means, and TF-IDF+LogReg models are serialised here
+#   as .pkl files after their first training run:
+#
+#     prophet_model.pkl       — Fitted Prophet model object
+#     prophet_meta.pkl        — Training metadata (dates, metrics, last trained)
+#     kmeans_model.pkl        — Fitted KMeans model object
+#     kmeans_meta.pkl         — Cluster training metadata
+#     classifier_category.pkl — TF-IDF + LogReg category pipeline
+#     classifier_priority.pkl — TF-IDF + LogReg priority pipeline
+#     classifier_meta.pkl     — Classifier training metadata
+#
+# .gitignore rules for this directory:
+#   models/saved/*.pkl       (never commit trained model binaries)
+#   !models/saved/.gitkeep   (always keep this placeholder)
+#
+# First-run behaviour:
+#   If no .pkl files exist, each model class trains from DB or synthetic
+#   data automatically on first request. The directory must exist or
+#   pickle.dump() will raise FileNotFoundError.

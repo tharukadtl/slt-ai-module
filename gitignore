@@ -1,0 +1,110 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# .gitignore — SLT AI Module
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ─── Environment & secrets ────────────────────────────────────────────────────
+# NEVER commit credentials, secrets, or environment files
+.env
+.env.*
+!.env.example          # keep the template
+*.pem
+*.key
+*.crt
+serviceAccountKey.json
+
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+pip-wheel-metadata/
+MANIFEST
+
+# ─── Virtual environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.virtualenv/
+
+# ─── Trained model binaries ───────────────────────────────────────────────────
+# Pickle files are large, binary, and environment-specific.
+# Regenerated automatically on first run.
+models/saved/*.pkl
+models/saved/*.joblib
+models/saved/*.h5
+!models/saved/.gitkeep  # always keep the placeholder
+
+# ─── Log files ────────────────────────────────────────────────────────────────
+logs/*.log
+logs/*.log.*
+logs/*.gz
+!logs/.gitkeep          # always keep the placeholder
+
+# ─── pytest / coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.coveragerc
+.tox/
+nosetests.xml
+test-results/
+junit*.xml
+
+# ─── pystan / Prophet build artefacts ────────────────────────────────────────
+# Prophet compiles a Stan model to a local cache on first use
+~/.cache/pystan/
+~/.cache/prophet/
+*.stan.pkl
+httpstan/
+
+# ─── Jupyter notebooks ────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── IDE & editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Docker ───────────────────────────────────────────────────────────────────
+# Don't commit local docker override files
+docker-compose.override.yml
+docker-compose.local.yml
+
+# ─── Uploads ─────────────────────────────────────────────────────────────────
+uploads/
+*.jpg
+*.jpeg
+*.png
+*.gif
+# (keep .gitkeep placeholders if you add them to uploads/)
+
+# ─── OS generated ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ─── Temporary / scratch ──────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.orig
+scratch/
+tmp/

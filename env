@@ -1,0 +1,43 @@
+# ─── SLT AI Module — Environment Variables ────────────────────────────────────
+# Copy this file to .env and fill in values. NEVER commit .env to Git.
+
+# ── Flask ──────────────────────────────────────────────────────────────────────
+FLASK_ENV=development
+FLASK_DEBUG=true
+FLASK_PORT=5000
+FLASK_HOST=0.0.0.0
+SECRET_KEY=slt-ai-secret-key-change-in-production
+
+# ── Database (same MySQL as Spring Boot) ──────────────────────────────────────
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=slt_fieldops_db
+DB_USER=root
+DB_PASSWORD=1234
+DB_POOL_SIZE=5
+DB_POOL_RECYCLE=3600
+
+# ── Spring Boot API (for live data fallback) ───────────────────────────────────
+SPRING_API_URL=http://localhost:8080
+SPRING_API_TOKEN=
+
+# ── AI Model settings ──────────────────────────────────────────────────────────
+MODEL_DIR=./models/saved
+FORECAST_HORIZON_DAYS=30
+FORECAST_MIN_HISTORY_DAYS=90
+KMEANS_N_CLUSTERS=5
+KMEANS_RANDOM_STATE=42
+ROUTE_SEARCH_RADIUS_KM=50
+RETRAIN_INTERVAL_HOURS=24
+
+# ── Sri Lanka geographic bounds ────────────────────────────────────────────────
+SL_LAT_MIN=5.9
+SL_LAT_MAX=9.9
+SL_LNG_MIN=79.5
+SL_LNG_MAX=81.9
+SL_CENTER_LAT=7.8731
+SL_CENTER_LNG=80.7718
+
+# ── Logging ────────────────────────────────────────────────────────────────────
+LOG_LEVEL=INFO
+LOG_FILE=./logs/ai_module.log

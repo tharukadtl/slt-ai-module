@@ -1,0 +1,30 @@
+# ─── SLT AI Module — Python Dependencies ─────────────────────────────────────
+# Install: pip install -r requirements.txt
+
+# ── Web framework ──────────────────────────────────────────────────────────────
+Flask==3.0.3
+flask-cors==4.0.1
+
+# ── Database ───────────────────────────────────────────────────────────────────
+SQLAlchemy==2.0.30
+PyMySQL==1.1.1
+cryptography==42.0.8
+
+# ── Data processing ────────────────────────────────────────────────────────────
+pandas==2.2.2
+numpy==1.26.4
+
+# ── Machine learning — Prophet ─────────────────────────────────────────────────
+prophet==1.1.5
+holidays==0.50
+
+# ── Machine learning — scikit-learn ────────────────────────────────────────────
+scikit-learn==1.4.2
+
+# ── Geospatial ─────────────────────────────────────────────────────────────────
+geopy==2.4.1
+
+# ── HTTP / utilities ───────────────────────────────────────────────────────────
+requests==2.32.3
+python-dotenv==1.0.1
+python-dateutil==2.9.0.post0

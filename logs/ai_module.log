@@ -1,0 +1,966 @@
+2026-04-22 12:28:17 | INFO     | matplotlib.font_manager | generated new fontManager
+2026-04-22 12:28:17 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 12:28:32 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 12:28:32 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 12:28:32 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 12:28:32 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 12:28:32 | INFO     | slt_ai | ============================================================
+2026-04-22 12:28:32 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 12:28:32 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 12:28:32 | INFO     | slt_ai |   Debug:   False
+2026-04-22 12:28:32 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 12:28:32 | INFO     | slt_ai | ============================================================
+2026-04-22 12:28:32 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.202:5000
+2026-04-22 12:28:32 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 12:31:33 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 12:31:33 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 12:31:33 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 12:31:33 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 12:31:33 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 12:31:33 | INFO     | slt_ai | ============================================================
+2026-04-22 12:31:33 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 12:31:33 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 12:31:33 | INFO     | slt_ai |   Debug:   False
+2026-04-22 12:31:33 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 12:31:33 | INFO     | slt_ai | ============================================================
+2026-04-22 12:31:33 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.202:5000
+2026-04-22 12:31:33 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 12:33:01 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 12:33:02 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 12:33:02 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 12:33:02 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 12:33:02 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 12:33:02 | INFO     | slt_ai | ============================================================
+2026-04-22 12:33:02 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 12:33:02 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 12:33:02 | INFO     | slt_ai |   Debug:   False
+2026-04-22 12:33:02 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 12:33:02 | INFO     | slt_ai | ============================================================
+2026-04-22 12:33:02 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.202:5000
+2026-04-22 12:33:02 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 12:34:44 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 12:34:44] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 12:34:44 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 12:34:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-04-22 12:35:21 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 12:35:21] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 12:35:57 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 12:35:58 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 12:35:58 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 12:35:58 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 12:35:58 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 12:35:58 | INFO     | slt_ai | ============================================================
+2026-04-22 12:35:58 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 12:35:58 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 12:35:58 | INFO     | slt_ai |   Debug:   False
+2026-04-22 12:35:58 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 12:35:58 | INFO     | slt_ai | ============================================================
+2026-04-22 12:35:58 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.202:5000
+2026-04-22 12:35:58 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 14:08:50 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 14:08:51 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 14:08:51 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 14:08:51 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 14:08:51 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 14:08:51 | INFO     | slt_ai | ============================================================
+2026-04-22 14:08:51 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 14:08:51 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 14:08:51 | INFO     | slt_ai |   Debug:   False
+2026-04-22 14:08:51 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 14:08:51 | INFO     | slt_ai | ============================================================
+2026-04-22 14:08:51 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.202:5000
+2026-04-22 14:08:51 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 14:25:55 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:25:55] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 14:30:17 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 14:30:18 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 14:30:18 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 14:30:18 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 14:30:18 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 14:30:18 | INFO     | slt_ai | ============================================================
+2026-04-22 14:30:18 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 14:30:18 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 14:30:18 | INFO     | slt_ai |   Debug:   False
+2026-04-22 14:30:18 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 14:30:18 | INFO     | slt_ai | ============================================================
+2026-04-22 14:30:18 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.202:5000
+2026-04-22 14:30:18 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 14:31:20 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 14:31:21 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 14:31:21 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 14:31:21 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 14:31:21 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 14:31:21 | INFO     | slt_ai | ============================================================
+2026-04-22 14:31:21 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 14:31:21 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 14:31:21 | INFO     | slt_ai |   Debug:   False
+2026-04-22 14:31:21 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 14:31:21 | INFO     | slt_ai | ============================================================
+2026-04-22 14:31:21 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.202:5000
+2026-04-22 14:31:21 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 14:31:39 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:31:39] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 14:31:39 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:31:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-04-22 14:31:43 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:31:43] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 14:39:29 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 14:39:30 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 14:39:30 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 14:39:30 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 14:39:30 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 14:39:30 | INFO     | slt_ai | ============================================================
+2026-04-22 14:39:30 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 14:39:30 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 14:39:30 | INFO     | slt_ai |   Debug:   False
+2026-04-22 14:39:30 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 14:39:30 | INFO     | slt_ai | ============================================================
+2026-04-22 14:39:30 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-22 14:39:30 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 14:42:44 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:42:44] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 14:43:29 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:43:29] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 14:43:39 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-22 14:43:39 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-22 14:43:39 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-22 14:43:39 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-10-30 to 2026-04-22
+2026-04-22 14:43:39 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-22 14:43:39 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-22 14:43:39 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:43:39] "[35m[1mGET /api/ai/predictions HTTP/1.1[0m" 500 -
+2026-04-22 14:46:51 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-22 14:46:51 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-22 14:46:51 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-22 14:46:51 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-10-30 to 2026-04-22
+2026-04-22 14:46:52 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-22 14:46:52 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-22 14:46:52 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 14:46:52] "[35m[1mGET /api/ai/predictions HTTP/1.1[0m" 500 -
+2026-04-22 15:16:36 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-22 15:16:37 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-22 15:16:37 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-22 15:16:37 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-22 15:16:37 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-22 15:16:37 | INFO     | slt_ai | ============================================================
+2026-04-22 15:16:37 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-22 15:16:37 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-22 15:16:37 | INFO     | slt_ai |   Debug:   False
+2026-04-22 15:16:37 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-22 15:16:37 | INFO     | slt_ai | ============================================================
+2026-04-22 15:16:37 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-22 15:16:37 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-22 15:17:54 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 15:17:54] "[33mGET / HTTP/1.1[0m" 404 -
+2026-04-22 15:18:48 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 15:18:48] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-22 15:19:27 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-22 15:19:27 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-22 15:19:27 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-22 15:19:27 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-10-30 to 2026-04-22
+2026-04-22 15:19:27 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-22 15:19:27 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-22 15:19:27 | INFO     | werkzeug | 127.0.0.1 - - [22/Apr/2026 15:19:27] "[35m[1mGET /api/ai/predictions HTTP/1.1[0m" 500 -
+2026-04-25 17:15:46 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-25 17:15:52 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-25 17:15:52 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-25 17:15:52 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-25 17:15:52 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-25 17:15:52 | INFO     | slt_ai | ============================================================
+2026-04-25 17:15:52 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-25 17:15:52 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-25 17:15:52 | INFO     | slt_ai |   Debug:   False
+2026-04-25 17:15:52 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-25 17:15:52 | INFO     | slt_ai | ============================================================
+2026-04-25 17:15:52 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-25 17:15:52 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-25 17:30:59 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:30:59] "[33mGET / HTTP/1.1[0m" 404 -
+2026-04-25 17:30:59 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:30:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-04-25 17:35:13 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:13] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 17:35:13 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:13] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 17:35:13 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:13] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 17:35:13 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:13] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 17:35:13 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:13] "OPTIONS /api/ai/predictions?horizon=30 HTTP/1.1" 200 -
+2026-04-25 17:35:13 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 17:35:13 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 17:35:13 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 17:35:14 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 17:35:14 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 17:35:14 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 17:35:14 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:14] "[35m[1mGET /api/ai/predictions?horizon=30 HTTP/1.1[0m" 500 -
+2026-04-25 17:35:14 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:14] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 17:35:15 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 17:35:15 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 17:35:16 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 17:35:16 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 17:35:16 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 17:35:16 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 17:35:16 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:35:16] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 17:36:18 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:18] "OPTIONS /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 17:36:18 | ERROR    | slt_ai.extractor | get_available_technicians error: (pymysql.err.OperationalError) (1054, "Unknown column 'tl.status' in 'field list'")
+[SQL: 
+            SELECT
+                u.id                        AS technician_id,
+                u.full_name,
+                u.phone,
+                u.branch_id,
+                tl.latitude,
+                tl.longitude,
+                tl.status,
+                tl.updated_at               AS last_seen,
+                j.id                        AS current_job_id
+            FROM users u
+            INNER JOIN technician_locations tl
+                ON tl.technician_id = u.id
+            LEFT JOIN jobs j
+                ON j.assigned_to_id = u.id
+                AND j.status IN ('ACCEPTED','TRAVELLING','IN_PROGRESS')
+            WHERE
+                u.role IN ('TECHNICIAN','TEAM_LEAD')
+                AND u.is_active = 1
+                AND tl.updated_at >= DATE_SUB(NOW(), INTERVAL 2 HOUR)
+                AND tl.latitude  BETWEEN %(lat_min)s AND %(lat_max)s
+                AND tl.longitude BETWEEN %(lng_min)s AND %(lng_max)s
+            GROUP BY u.id
+            ORDER BY tl.updated_at DESC
+        ]
+[parameters: {'lat_min': 5.9, 'lat_max': 9.9, 'lng_min': 79.5, 'lng_max': 81.9}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-25 17:36:18 | INFO     | slt_ai | Using synthetic technician data for routing
+2026-04-25 17:36:18 | INFO     | slt_ai.synthetic | Generated 25 synthetic technician locations
+2026-04-25 17:36:18 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:18] "GET /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 17:36:21 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:21] "OPTIONS /api/ai/predictions?horizon=30 HTTP/1.1" 200 -
+2026-04-25 17:36:21 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 17:36:21 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 17:36:21 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 17:36:21 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 17:36:21 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 17:36:21 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 17:36:21 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:21] "[35m[1mGET /api/ai/predictions?horizon=30 HTTP/1.1[0m" 500 -
+2026-04-25 17:36:21 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:21] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 17:36:21 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 17:36:21 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 17:36:22 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 17:36:22 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 17:36:22 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 17:36:22 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 17:36:22 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:22] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 17:36:22 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 17:36:22 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 17:36:22 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 17:36:22 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 17:36:22 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 17:36:22 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 17:36:22 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:22] "[35m[1mGET /api/ai/predictions?horizon=30 HTTP/1.1[0m" 500 -
+2026-04-25 17:36:23 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 17:36:23 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 17:36:23 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 17:36:23 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 17:36:23 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 17:36:23 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 17:36:23 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 17:36:23] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:00:03 | ERROR    | prophet.plot | Importing plotly failed. Interactive plots will not work.
+2026-04-25 22:00:04 | INFO     | slt_ai | ✅ Database connected: localhost:3306/slt_fieldops_db
+2026-04-25 22:00:04 | INFO     | slt_ai.synthetic | SyntheticDataGenerator initialised (seed=42)
+2026-04-25 22:00:04 | INFO     | slt_ai.forecasting | No saved Prophet model found — will train on first request
+2026-04-25 22:00:04 | INFO     | slt_ai.router | DijkstraRouter initialised
+2026-04-25 22:00:04 | INFO     | slt_ai | ============================================================
+2026-04-25 22:00:04 | INFO     | slt_ai |   SLT AI Module — Starting Flask Server
+2026-04-25 22:00:04 | INFO     | slt_ai |   Host:    0.0.0.0:5000
+2026-04-25 22:00:04 | INFO     | slt_ai |   Debug:   False
+2026-04-25 22:00:04 | INFO     | slt_ai |   DB:      localhost:3306/slt_fieldops_db
+2026-04-25 22:00:04 | INFO     | slt_ai | ============================================================
+2026-04-25 22:00:04 | INFO     | werkzeug | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-25 22:00:04 | INFO     | werkzeug | [33mPress CTRL+C to quit[0m
+2026-04-25 22:01:04 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:01:04] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:01:05 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:01:05] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:01:05 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:01:05] "OPTIONS /api/ai/predictions?horizon=30 HTTP/1.1" 200 -
+2026-04-25 22:01:05 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:01:05 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:01:05 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:01:05 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:01:05 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:01:05 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:01:05 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:01:05] "[35m[1mGET /api/ai/predictions?horizon=30 HTTP/1.1[0m" 500 -
+2026-04-25 22:01:05 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:01:05] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:01:06 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:01:06 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:01:06 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:01:06 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:01:06 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:01:06 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:01:06 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:01:06] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:08:43 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:43] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:08:43 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:43] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:08:43 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:43] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:08:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:44] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:08:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:44] "OPTIONS /api/ai/predictions?horizon=30 HTTP/1.1" 200 -
+2026-04-25 22:08:44 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:08:44 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:08:44 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:08:44 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:08:44 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:08:44 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:08:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:44] "[35m[1mGET /api/ai/predictions?horizon=30 HTTP/1.1[0m" 500 -
+2026-04-25 22:08:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:44] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:08:45 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:08:45 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:08:45 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:08:45 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:08:45 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:08:45 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:08:45 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:45] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:08:48 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:48] "OPTIONS /api/ai/predictions?horizon=14 HTTP/1.1" 200 -
+2026-04-25 22:08:49 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:08:49 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:08:49 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:08:49 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:08:49 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:08:49 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:08:49 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:49] "[35m[1mGET /api/ai/predictions?horizon=14 HTTP/1.1[0m" 500 -
+2026-04-25 22:08:49 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:08:49 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:08:49 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:08:49 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:08:49 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:08:49 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:08:49 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:49] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:08:50 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:50] "OPTIONS /api/ai/predictions?horizon=7 HTTP/1.1" 200 -
+2026-04-25 22:08:50 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:08:50 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:08:50 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:08:50 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:08:50 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:08:50 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:08:50 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:50] "[35m[1mGET /api/ai/predictions?horizon=7 HTTP/1.1[0m" 500 -
+2026-04-25 22:08:50 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:50] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:08:51 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:08:51 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:08:51 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:08:51 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:08:51 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:08:51 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:08:51 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:51] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:08:53 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:08:53 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:08:53 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:08:53 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:08:53 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:08:53 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:08:53 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:53] "[35m[1mGET /api/ai/predictions?horizon=14 HTTP/1.1[0m" 500 -
+2026-04-25 22:08:53 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:08:53 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:08:54 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:08:54 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:08:54 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:08:54 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:08:54 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:54] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:08:56 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:56] "OPTIONS /api/ai/predictions?horizon=14 HTTP/1.1" 200 -
+2026-04-25 22:08:56 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:08:56 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:08:56 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:08:56 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:08:56 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:08:56 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:08:56 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:56] "[35m[1mGET /api/ai/predictions?horizon=14 HTTP/1.1[0m" 500 -
+2026-04-25 22:08:56 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:56] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:08:56 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:08:56 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:08:57 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:08:57 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:08:57 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:08:57 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:08:57 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:08:57] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:37:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:44] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:37:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:44] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:37:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:44] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:37:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:44] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:37:44 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:44] "OPTIONS /api/ai/predictions?horizon=30 HTTP/1.1" 200 -
+2026-04-25 22:37:44 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:37:44 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:37:44 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:37:44 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:37:44 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:37:45 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:37:45 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:45] "[35m[1mGET /api/ai/predictions?horizon=30 HTTP/1.1[0m" 500 -
+2026-04-25 22:37:45 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:45] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:37:45 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:37:45 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:37:46 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:37:46 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:37:46 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:37:46 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:37:46 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:46] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:37:49 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:49] "OPTIONS /api/ai/predictions?horizon=14 HTTP/1.1" 200 -
+2026-04-25 22:37:50 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:37:50 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:37:50 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:37:50 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:37:50 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:37:50 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:37:50 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:50] "[35m[1mGET /api/ai/predictions?horizon=14 HTTP/1.1[0m" 500 -
+2026-04-25 22:37:50 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:50] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:37:50 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:37:50 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:37:51 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:37:51 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:37:51 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:37:51 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:37:51 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:51] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:37:51 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:51] "OPTIONS /api/ai/predictions?horizon=7 HTTP/1.1" 200 -
+2026-04-25 22:37:52 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:37:52 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:37:52 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:37:52 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:37:52 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:37:52 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:37:52 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:52] "[35m[1mGET /api/ai/predictions?horizon=7 HTTP/1.1[0m" 500 -
+2026-04-25 22:37:52 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:37:52 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:37:53 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:37:53 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:37:53 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:37:53 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:37:53 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:53] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:37:55 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:55] "OPTIONS /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 22:37:55 | ERROR    | slt_ai.extractor | get_available_technicians error: (pymysql.err.OperationalError) (1054, "Unknown column 'tl.status' in 'field list'")
+[SQL: 
+            SELECT
+                u.id                        AS technician_id,
+                u.full_name,
+                u.phone,
+                u.branch_id,
+                tl.latitude,
+                tl.longitude,
+                tl.status,
+                tl.updated_at               AS last_seen,
+                j.id                        AS current_job_id
+            FROM users u
+            INNER JOIN technician_locations tl
+                ON tl.technician_id = u.id
+            LEFT JOIN jobs j
+                ON j.assigned_to_id = u.id
+                AND j.status IN ('ACCEPTED','TRAVELLING','IN_PROGRESS')
+            WHERE
+                u.role IN ('TECHNICIAN','TEAM_LEAD')
+                AND u.is_active = 1
+                AND tl.updated_at >= DATE_SUB(NOW(), INTERVAL 2 HOUR)
+                AND tl.latitude  BETWEEN %(lat_min)s AND %(lat_max)s
+                AND tl.longitude BETWEEN %(lng_min)s AND %(lng_max)s
+            GROUP BY u.id
+            ORDER BY tl.updated_at DESC
+        ]
+[parameters: {'lat_min': 5.9, 'lat_max': 9.9, 'lng_min': 79.5, 'lng_max': 81.9}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-25 22:37:55 | INFO     | slt_ai | Using synthetic technician data for routing
+2026-04-25 22:37:55 | INFO     | slt_ai.synthetic | Generated 25 synthetic technician locations
+2026-04-25 22:37:55 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:37:55] "GET /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 22:38:03 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:03] "OPTIONS /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 22:38:03 | ERROR    | slt_ai.extractor | get_available_technicians error: (pymysql.err.OperationalError) (1054, "Unknown column 'tl.status' in 'field list'")
+[SQL: 
+            SELECT
+                u.id                        AS technician_id,
+                u.full_name,
+                u.phone,
+                u.branch_id,
+                tl.latitude,
+                tl.longitude,
+                tl.status,
+                tl.updated_at               AS last_seen,
+                j.id                        AS current_job_id
+            FROM users u
+            INNER JOIN technician_locations tl
+                ON tl.technician_id = u.id
+            LEFT JOIN jobs j
+                ON j.assigned_to_id = u.id
+                AND j.status IN ('ACCEPTED','TRAVELLING','IN_PROGRESS')
+            WHERE
+                u.role IN ('TECHNICIAN','TEAM_LEAD')
+                AND u.is_active = 1
+                AND tl.updated_at >= DATE_SUB(NOW(), INTERVAL 2 HOUR)
+                AND tl.latitude  BETWEEN %(lat_min)s AND %(lat_max)s
+                AND tl.longitude BETWEEN %(lng_min)s AND %(lng_max)s
+            GROUP BY u.id
+            ORDER BY tl.updated_at DESC
+        ]
+[parameters: {'lat_min': 5.9, 'lat_max': 9.9, 'lng_min': 79.5, 'lng_max': 81.9}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-25 22:38:03 | INFO     | slt_ai | Using synthetic technician data for routing
+2026-04-25 22:38:03 | INFO     | slt_ai.synthetic | Generated 25 synthetic technician locations
+2026-04-25 22:38:04 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:04] "GET /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 22:38:24 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:24] "OPTIONS /api/ai/predictions?horizon=14 HTTP/1.1" 200 -
+2026-04-25 22:38:24 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:38:24 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:38:24 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:38:24 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:38:24 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:38:24 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:38:24 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:24] "[35m[1mGET /api/ai/predictions?horizon=14 HTTP/1.1[0m" 500 -
+2026-04-25 22:38:25 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:25] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:38:25 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:38:25 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:38:25 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:38:25 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:38:25 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:38:25 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:38:25 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:25] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
+2026-04-25 22:38:34 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:34] "OPTIONS /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 22:38:35 | ERROR    | slt_ai.extractor | get_available_technicians error: (pymysql.err.OperationalError) (1054, "Unknown column 'tl.status' in 'field list'")
+[SQL: 
+            SELECT
+                u.id                        AS technician_id,
+                u.full_name,
+                u.phone,
+                u.branch_id,
+                tl.latitude,
+                tl.longitude,
+                tl.status,
+                tl.updated_at               AS last_seen,
+                j.id                        AS current_job_id
+            FROM users u
+            INNER JOIN technician_locations tl
+                ON tl.technician_id = u.id
+            LEFT JOIN jobs j
+                ON j.assigned_to_id = u.id
+                AND j.status IN ('ACCEPTED','TRAVELLING','IN_PROGRESS')
+            WHERE
+                u.role IN ('TECHNICIAN','TEAM_LEAD')
+                AND u.is_active = 1
+                AND tl.updated_at >= DATE_SUB(NOW(), INTERVAL 2 HOUR)
+                AND tl.latitude  BETWEEN %(lat_min)s AND %(lat_max)s
+                AND tl.longitude BETWEEN %(lng_min)s AND %(lng_max)s
+            GROUP BY u.id
+            ORDER BY tl.updated_at DESC
+        ]
+[parameters: {'lat_min': 5.9, 'lat_max': 9.9, 'lng_min': 79.5, 'lng_max': 81.9}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-04-25 22:38:35 | INFO     | slt_ai | Using synthetic technician data for routing
+2026-04-25 22:38:35 | INFO     | slt_ai.synthetic | Generated 25 synthetic technician locations
+2026-04-25 22:38:35 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:38:35] "GET /api/ai/optimize-route?lat=6.9271&lng=79.8612 HTTP/1.1" 200 -
+2026-04-25 22:41:36 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:36] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:41:36 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:36] "OPTIONS /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:41:36 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:36] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:41:36 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:36] "GET /api/ai/health HTTP/1.1" 200 -
+2026-04-25 22:41:36 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:36] "OPTIONS /api/ai/predictions?horizon=30 HTTP/1.1" 200 -
+2026-04-25 22:41:36 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:36] "OPTIONS /api/ai/clusters HTTP/1.1" 200 -
+2026-04-25 22:41:36 | INFO     | slt_ai.extractor | Extracted fault time-series: 0 days
+2026-04-25 22:41:36 | INFO     | slt_ai | Using synthetic data for forecast
+2026-04-25 22:41:36 | INFO     | slt_ai.synthetic | Generated 540 days of synthetic fault time-series
+2026-04-25 22:41:36 | INFO     | slt_ai.cleaner | Time-series clean: 540 → 540 rows, range 2024-11-02 to 2026-04-25
+2026-04-25 22:41:37 | INFO     | slt_ai.forecasting | Training Prophet on 540 days of data…
+2026-04-25 22:41:37 | ERROR    | slt_ai | Forecast error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 198, in predictions
+    result = _forecaster.forecast(raw_df, horizon=horizon)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 161, in forecast
+    self._train(train_df)
+  File "C:\Project\slt\slt-ai-module\models\forecasting.py", line 205, in _train
+    m = Prophet(**PROPHET_PARAMS)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 155, in __init__
+    self._load_stan_backend(stan_backend)
+  File "C:\Project\slt\slt-ai-module\venv\Lib\site-packages\prophet\forecaster.py", line 168, in _load_stan_backend
+    logger.debug("Loaded stan backend: %s", self.stan_backend.get_type())
+                                            ^^^^^^^^^^^^^^^^^
+AttributeError: 'Prophet' object has no attribute 'stan_backend'
+2026-04-25 22:41:37 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:37] "[35m[1mGET /api/ai/predictions?horizon=30 HTTP/1.1[0m" 500 -
+2026-04-25 22:41:37 | INFO     | slt_ai.extractor | Extracted 0 faults with GPS
+2026-04-25 22:41:37 | INFO     | slt_ai | Using synthetic GPS data for clustering
+2026-04-25 22:41:37 | INFO     | slt_ai.synthetic | Generated 1000 synthetic fault GPS points
+2026-04-25 22:41:37 | INFO     | slt_ai.cleaner | GPS clean: 1000 → 1000 points
+2026-04-25 22:41:37 | INFO     | slt_ai.clustering | Fitting K-Means: k=5, n_points=1000
+2026-04-25 22:41:37 | ERROR    | slt_ai | Clustering error
+Traceback (most recent call last):
+  File "C:\Project\slt\slt-ai-module\app.py", line 248, in clusters
+    result = _clusterer.cluster(gps_df, n_clusters=n_clusters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 141, in cluster
+    self._fit(X, n_clusters)
+  File "C:\Project\slt\slt-ai-module\models\clustering.py", line 199, in _fit
+    n_init=10 if init == 'k-means++' else 1,
+                 ^^^^^^^^^^^^^^^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2026-04-25 22:41:37 | INFO     | werkzeug | 127.0.0.1 - - [25/Apr/2026 22:41:37] "[35m[1mGET /api/ai/clusters HTTP/1.1[0m" 500 -
