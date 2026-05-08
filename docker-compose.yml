@@ -1,0 +1,255 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# docker-compose.yml — SLT After-Service Issue Management & Workforce System
+# ═══════════════════════════════════════════════════════════════════════════════
+# Services:
+#   mysql       — MySQL 8.0 database (port 3306, internal only)
+#   springboot  — Spring Boot 3.2.3 REST API (port 8080)
+#   ai-module   — Python Flask AI microservice (port 5000, internal + exposed)
+#   nginx       — Reverse proxy + SSL termination (ports 80/443, public)
+#
+# Usage:
+#   # Start all services (production)
+#   docker-compose up -d
+#
+#   # Start with live logs
+#   docker-compose up
+#
+#   # Start only the AI module + database (for AI development)
+#   docker-compose up -d mysql ai-module
+#
+#   # Rebuild after code changes
+#   docker-compose up -d --build ai-module
+#
+#   # Run tests inside the AI container
+#   docker-compose exec ai-module python -m pytest tests/ -v
+#
+#   # Tail AI module logs
+#   docker-compose logs -f ai-module
+#
+#   # Stop all services
+#   docker-compose down
+#
+#   # Stop and remove volumes (full reset — DESTROYS DATABASE DATA)
+#   docker-compose down -v
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version: "3.9"
+
+# ─── Shared network ───────────────────────────────────────────────────────────
+networks:
+  slt-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# ─── Named volumes (persistent data) ─────────────────────────────────────────
+volumes:
+  mysql-data:
+    driver: local
+  ai-models:
+    driver: local
+  ai-logs:
+    driver: local
+  spring-logs:
+    driver: local
+  nginx-ssl:
+    driver: local
+
+# ─── Services ─────────────────────────────────────────────────────────────────
+services:
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # MySQL 8.0 — Primary database
+  # ═══════════════════════════════════════════════════════════════════════════
+  mysql:
+    image: mysql:8.0
+    container_name: slt-mysql
+    restart: unless-stopped
+    networks:
+      - slt-network
+    # Port NOT exposed to host in production — only accessible internally
+    # For local development, uncomment the line below:
+    # ports:
+    #   - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE:      ${DB_NAME:-slt_fieldops_db}
+      MYSQL_USER:          ${DB_USER:-sltuser}
+      MYSQL_PASSWORD:      ${DB_PASSWORD:-sltpassword}
+      # Increase group_concat length for complex KPI queries
+      MYSQL_INNODB_BUFFER_POOL_SIZE: "256M"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # Optional: seed SQL scripts run on first container start
+      # - ./sql/init:/docker-entrypoint-initdb.d:ro
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+      --innodb-buffer-pool-size=256M
+      --max-connections=200
+      --slow-query-log=1
+      --slow-query-log-file=/var/log/mysql/slow.log
+      --long-query-time=2
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost",
+             "-u", "${DB_USER:-sltuser}", "-p${DB_PASSWORD:-sltpassword}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Spring Boot 3.2.3 — REST API + WebSocket
+  # ═══════════════════════════════════════════════════════════════════════════
+  springboot:
+    build:
+      context: ../fieldops            # Path to Spring Boot project root
+      dockerfile: Dockerfile
+    container_name: slt-springboot
+    restart: unless-stopped
+    networks:
+      - slt-network
+    # Exposed to host for direct API testing — proxied via NGINX in production
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      # Database
+      SPRING_DATASOURCE_URL:      jdbc:mysql://mysql:3306/${DB_NAME:-slt_fieldops_db}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Colombo
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-sltuser}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-sltpassword}
+      # JPA
+      SPRING_JPA_HIBERNATE_DDL_AUTO:  update
+      SPRING_JPA_SHOW_SQL:            "false"
+      # JWT
+      JWT_SECRET:                 ${JWT_SECRET:-change-this-secret-in-production-256bit}
+      JWT_ACCESS_EXPIRY_MINUTES:  ${JWT_ACCESS_EXPIRY_MINUTES:-30}
+      JWT_REFRESH_EXPIRY_DAYS:    ${JWT_REFRESH_EXPIRY_DAYS:-7}
+      # Firebase FCM
+      FIREBASE_ENABLED:           ${FIREBASE_ENABLED:-false}
+      # AI Module URL (for Spring Boot to call AI endpoints)
+      AI_MODULE_URL:              http://ai-module:5000
+      # Spring profiles
+      SPRING_PROFILES_ACTIVE:     ${SPRING_PROFILES:-docker}
+      # Logging
+      LOGGING_LEVEL_ROOT:         ${SPRING_LOG_LEVEL:-INFO}
+    volumes:
+      - spring-logs:/app/logs
+      # Mount uploads directory for fault photos
+      - ./uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Python Flask AI Module — Prophet · K-Means · Dijkstra
+  # ═══════════════════════════════════════════════════════════════════════════
+  ai-module:
+    build:
+      context: ./slt-ai-module        # Path to this AI module directory
+      dockerfile: Dockerfile
+    container_name: slt-ai-module
+    restart: unless-stopped
+    networks:
+      - slt-network
+    # Exposed to host for direct AI API testing — proxied via NGINX in prod
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      # Flask
+      FLASK_ENV:          ${FLASK_ENV:-production}
+      FLASK_DEBUG:        ${FLASK_DEBUG:-false}
+      FLASK_HOST:         0.0.0.0
+      FLASK_PORT:         5000
+      SECRET_KEY:         ${AI_SECRET_KEY:-ai-secret-change-in-production}
+      # Database (same MySQL instance as Spring Boot)
+      DB_HOST:            mysql
+      DB_PORT:            3306
+      DB_NAME:            ${DB_NAME:-slt_fieldops_db}
+      DB_USER:            ${DB_USER:-sltuser}
+      DB_PASSWORD:        ${DB_PASSWORD:-sltpassword}
+      DB_POOL_SIZE:       5
+      DB_POOL_RECYCLE:    3600
+      # Spring Boot API (for live data fallback)
+      SPRING_API_URL:     http://springboot:8080
+      # AI Model settings
+      MODEL_DIR:          /app/models/saved
+      FORECAST_HORIZON_DAYS:        30
+      FORECAST_MIN_HISTORY_DAYS:    90
+      KMEANS_N_CLUSTERS:            5
+      KMEANS_RANDOM_STATE:          42
+      ROUTE_SEARCH_RADIUS_KM:       50
+      RETRAIN_INTERVAL_HOURS:       24
+      # Sri Lanka geographic bounds
+      SL_LAT_MIN:  5.9
+      SL_LAT_MAX:  9.9
+      SL_LNG_MIN:  79.5
+      SL_LNG_MAX:  81.9
+      SL_CENTER_LAT: 7.8731
+      SL_CENTER_LNG: 80.7718
+      # Logging
+      LOG_LEVEL:    ${AI_LOG_LEVEL:-INFO}
+      LOG_FILE:     /app/logs/ai_module.log
+    volumes:
+      # Persist trained model pickle files across container restarts
+      - ai-models:/app/models/saved
+      # Persist log files
+      - ai-logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/ai/health/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s          # Prophet needs time to train on first start
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # NGINX — Reverse Proxy + SSL Termination
+  # ═══════════════════════════════════════════════════════════════════════════
+  nginx:
+    image: nginx:alpine
+    container_name: slt-nginx
+    restart: unless-stopped
+    networks:
+      - slt-network
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      springboot:
+        condition: service_healthy
+      ai-module:
+        condition: service_healthy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - nginx-ssl:/etc/nginx/ssl
+      # React admin portal build output
+      - ./admin-portal/build:/usr/share/nginx/html:ro
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider",
+             "http://localhost/api/ai/health/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+# ─── Development override profiles ───────────────────────────────────────────
+# Use: docker-compose --profile dev up
+# Starts ai-module in development mode with auto-reload and no NGINX
+#
+# profiles:
+#   ai-module:
+#     profiles: ["dev"]
+#     command: ["python", "app.py"]
+#     environment:
+#       FLASK_DEBUG: "true"
+#       FLASK_ENV: development

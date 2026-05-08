@@ -1,0 +1,18 @@
+# logs/.gitkeep
+# =============
+# This file exists solely to make Git track the logs/ directory.
+#
+# Purpose of logs/:
+#   The AI module writes structured log output to this directory
+#   when LOG_FILE is set in .env (default: ./logs/ai_module.log).
+#
+#   Log file rotation is handled by the OS or a log management tool.
+#   Do not commit log files to version control.
+#
+# .gitignore rules for this directory:
+#   logs/*.log               (never commit log files)
+#   !logs/.gitkeep           (always keep this placeholder)
+#
+# Log format (configured in config.py):
+#   2026-04-20 09:15:30 | INFO     | slt_ai.forecasting | Prophet trained
+#   2026-04-20 09:15:31 | WARNING  | slt_ai.extractor   | DB unavailable
