@@ -28,3 +28,4 @@ geopy==2.4.1
 requests==2.32.3
 python-dotenv==1.0.1
 python-dateutil==2.9.0.post0
+gunicorn==22.0.0
