@@ -162,14 +162,23 @@ class ProphetForecaster:
         # ── 2. Add regressors ────────────────────────────────────────────────
         train_df = fe.add_prophet_regressors(clean_df)
 
-        # ── 3. Train (or refresh if data has grown significantly) — internal
+        # ── 3. Train (or refresh, on row growth OR staleness) — internal
         #      freshness auto-refit, unrelated to admin CSV governance,
         #      always was implicit/automatic. Admin-triggered, governed
         #      retraining goes through retrain() + activate_version()
-        #      instead (SRS 5.6.7). ─────────────────────────────────────────
+        #      instead (SRS 5.6.7). Two independent triggers, either one
+        #      refits: (a) enough new rows have accumulated, or (b) the
+        #      active model is simply old — AI-001/AI-004: row-count growth
+        #      alone never fires for a model that was trained on a full
+        #      window and then just sits there while calendar time passes,
+        #      so make_future_dataframe() keeps extending from that stale
+        #      training date while _build_response()'s cutoff check compares
+        #      against today, silently shrinking the forecast by about a day
+        #      for every day the model goes unrefreshed. ────────────────────
         should_retrain = (
             not self._trained
             or len(train_df) > self._meta.get('training_rows', 0) + 30
+            or self._is_stale()
         )
         if should_retrain:
             self._train(train_df)
@@ -259,24 +268,53 @@ class ProphetForecaster:
 
     def _train(self, train_df: pd.DataFrame) -> None:
         """
-        Fit and immediately activate. Used only for the internal freshness
-        auto-refit inside forecast() (keeping live DB/synthetic-sourced
-        forecasts current) and initial bootstrap training — this is not the
-        admin-triggered CSV governance flow, so no candidate gate applies
-        here. Governed retraining goes through retrain() + activate_version()
-        instead (SRS 5.6.7).
+        Fit, save as a CANDIDATE, and immediately activate it. Used only for
+        the internal freshness auto-refit inside forecast() (keeping live
+        DB/synthetic-sourced forecasts current) and initial bootstrap
+        training — still not the admin-triggered CSV governance flow (no
+        human review is ever required here, this path always was implicit/
+        automatic), but it now goes through the same candidate -> activate()
+        mechanics retrain()/activate_version() use, rather than a
+        save_version(status='active') shortcut, so every promotion —
+        automatic or admin-triggered — is auditable through one code path
+        and archives the previous active version the same way.
         """
         logger.info(f"Training Prophet on {len(train_df)} days of data…")
 
         m, meta = self._fit_model(train_df)
-        self._model   = m
-        self._trained = True
-        self._meta    = meta
+        metrics = self._compute_in_sample_metrics(train_df, model=m, meta=meta)
+        meta['in_sample_metrics'] = metrics
 
-        # Quick in-sample accuracy estimate (faster than cross-validation)
-        self._meta['in_sample_metrics'] = self._compute_in_sample_metrics(train_df, model=m, meta=meta)
-        self._registry.save_version(m, self._meta['in_sample_metrics'], self._meta, status='active')
-        logger.info(f"Prophet trained — in-sample MAE={self._meta['in_sample_metrics'].get('mae')}")
+        candidate  = self._registry.save_version(m, metrics, meta, status='candidate')
+        comparison = build_comparison(
+            self._registry.get_active(), candidate,
+            lower_is_better=_METRICS_LOWER_BETTER,
+            higher_is_better=_METRICS_HIGHER_BETTER,
+        )
+        prev_mae = ((comparison.get('delta') or {}).get('mae') or {}).get('previous')
+        logger.info(
+            f"Auto-refit: candidate version {candidate['versionId']} created "
+            f"(MAE={metrics.get('mae')}, previous active MAE={prev_mae}) — "
+            "auto-activating (internal freshness path, no human review required)"
+        )
+        self.activate_version(candidate['versionId'])
+
+    def _is_stale(self) -> bool:
+        """
+        AI-001/AI-004 — the other half of should_retrain's trigger, alongside
+        row-count growth. True once the active model's own last_trained
+        timestamp is more than Config.RETRAIN_INTERVAL_HOURS old.
+
+        last_trained is written as datetime.utcnow().isoformat() + 'Z' (a
+        naive UTC timestamp, not a real timezone-aware ISO string), so it's
+        parsed back the same way rather than through a timezone-aware path.
+        """
+        last_trained = self._meta.get('last_trained')
+        if not last_trained:
+            return False
+        trained_at = datetime.fromisoformat(last_trained.rstrip('Z'))
+        age_hours = (datetime.utcnow() - trained_at).total_seconds() / 3600
+        return age_hours > Config.RETRAIN_INTERVAL_HOURS
 
     def _fit_model(self, train_df: pd.DataFrame):
         """

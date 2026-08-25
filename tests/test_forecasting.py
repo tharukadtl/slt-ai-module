@@ -621,3 +621,85 @@ def test_retrain_creates_candidate_not_active(synth, tmp_path):
     assert comparison['delta']['mae']['previous'] == 9.9
     assert comparison['delta']['mae']['candidate'] == result['mae']
     assert isinstance(comparison['delta']['mae']['improved'], bool)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# AUTO-REFIT DATE STALENESS — SHEET 10_AI_MODULE, ROWS AI-001/AI-004
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_stale_model_triggers_auto_refit_on_forecast(synth, tmp_path):
+    """
+    AI-001/AI-004 — forecast()'s internal freshness auto-refit
+    (should_retrain) must fire on date staleness alone, not just row-count
+    growth. Before this fix, a model trained on a full window that then just
+    sat unrefreshed while calendar time passed would never retrain (row
+    count never grew), so make_future_dataframe() kept extending from that
+    stale training date while _build_response()'s cutoff check compared
+    against today — the forecast silently shrank toward empty the longer the
+    model went untouched.
+
+    Also verifies the *mechanism* of the fix, not just the symptom: the
+    auto-triggered refit must go through save_version(candidate) ->
+    activate_version() — the same promotion path retrain()/Activate Model
+    uses — rather than a direct save_version(status='active') write, so the
+    previous active version is archived by the same activate() call every
+    other promotion in this system goes through.
+
+    Runs against a throwaway ModelVersionRegistry rooted in tmp_path, same
+    isolation pattern as test_retrain_creates_candidate_not_active, so the
+    real models/saved/versions/forecaster registry the running service loads
+    on boot is neither read nor written by this test.
+    """
+    from models.forecasting    import ProphetForecaster
+    from models.model_registry import ModelVersionRegistry
+    from config                import Config
+
+    forecaster = ProphetForecaster()
+    forecaster._registry = ModelVersionRegistry(tmp_path, 'forecaster')
+    # __init__ already loaded whatever's active in the REAL registry before
+    # the swap above — reset so this instance starts genuinely untrained
+    # against the fresh, empty tmp_path registry instead of inheriting
+    # possibly-just-refreshed real state.
+    forecaster._trained = False
+    forecaster._model   = None
+    forecaster._meta    = {}
+
+    raw = synth.fault_time_series(days=220)
+
+    # First call — nothing active yet, should_retrain() fires on
+    # `not self._trained`, producing and activating version 1.
+    result = forecaster.forecast(raw, horizon=7)
+    assert len(result['forecast']) == 7
+    first_version = forecaster._registry.get_active()['versionId']
+
+    # Backdate the now-active version's last_trained past the staleness
+    # window, mirroring what happens over real elapsed time without waiting
+    # Config.RETRAIN_INTERVAL_HOURS hours. get_active()['meta'] is the exact
+    # same dict object as forecaster._meta (both point at the registry
+    # entry's meta), so mutating one is visible through the other.
+    stale_ts = (
+        datetime.utcnow() - timedelta(hours=Config.RETRAIN_INTERVAL_HOURS + 1)
+    ).isoformat() + 'Z'
+    forecaster._meta['last_trained'] = stale_ts
+
+    # Same raw data, same row count — isolates staleness as the trigger,
+    # since the existing row-count-growth check alone would not fire here.
+    result2 = forecaster.forecast(raw, horizon=7)
+    second_version = forecaster._registry.get_active()['versionId']
+    assert second_version != first_version, \
+        "Staleness alone must trigger a refit even with no row-count growth"
+    assert len(result2['forecast']) == 7, \
+        "Post-refit forecast must be full length again, not shrunk by staleness"
+
+    versions = {v['versionId']: v for v in forecaster._registry.list_versions()}
+    assert versions[second_version]['status'] == 'active'
+    assert versions[first_version]['status'] == 'archived', \
+        "Auto-refit must archive the previous active version via activate(), " \
+        "the same as every other promotion path in this system"
+
+    # A genuinely fresh model (last_trained just set by the refit above)
+    # must NOT be refit again on the very next request.
+    result3 = forecaster.forecast(raw, horizon=7)
+    third_version = forecaster._registry.get_active()['versionId']
+    assert third_version == second_version, \
+        "A genuinely fresh model must not be refit unnecessarily on every request"
