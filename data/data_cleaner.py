@@ -24,7 +24,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from typing import Optional, Tuple
 
-from config import Config
+from config import Config, has_sufficient_history
 
 logger = logging.getLogger('slt_ai.cleaner')
 
@@ -126,7 +126,7 @@ class DataCleaner:
         stats['date_max']     = str(df['ds'].max().date()) if len(df) > 0 else None
         stats['mean_y']       = round(float(df['y'].mean()), 2) if len(df) > 0 else 0
         stats['total_faults'] = int(df['y'].sum()) if len(df) > 0 else 0
-        stats['sufficient']   = len(df) >= min_rows
+        stats['sufficient']   = has_sufficient_history(len(df), min_days=min_rows)
 
         if not stats['sufficient']:
             msg = (f"Insufficient data: {len(df)} rows < {min_rows} required. "

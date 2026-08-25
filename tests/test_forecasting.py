@@ -40,8 +40,13 @@ def synth():
 
 @pytest.fixture(scope='module')
 def raw_ts(synth):
-    """180-day raw time-series DataFrame."""
-    return synth.fault_time_series(days=180)
+    """
+    220-day raw time-series DataFrame — comfortable headroom above
+    Config.FORECAST_MIN_HISTORY_DAYS (180): cleaning (dedup/outlier removal)
+    can drop rows, and a fixture sized exactly at the minimum would flip
+    forecast() into its insufficientData path on any row loss at all.
+    """
+    return synth.fault_time_series(days=220)
 
 
 @pytest.fixture(scope='module')
@@ -84,8 +89,8 @@ class TestSyntheticData:
         assert 'y'  in raw_ts.columns
 
     def test_time_series_length(self, raw_ts):
-        """180-day request produces 180 rows."""
-        assert len(raw_ts) == 180
+        """220-day request produces 220 rows."""
+        assert len(raw_ts) == 220
 
     def test_date_column_dtype(self, raw_ts):
         """ds column is datetime type."""
@@ -484,3 +489,135 @@ class TestProphetForecaster:
         # Should have at least one of these
         has_any = any(k in metrics for k in ['mae','rmse','accuracy','error'])
         assert has_any, f"retrain() returned unexpected dict: {metrics}"
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# MODEL VALIDATION — SHEET 10_AI_MODULE, ROW AI-003 (FR-26)
+# ═════════════════════════════════════════════════════════════════════════════
+
+class TestModelValidation:
+    """
+    AI-003 — the sheet's stated Prophet accuracy targets, measured on a real
+    out-of-sample holdout rather than in-sample: train on the first 150 days of
+    a seeded 180-day series, predict the remaining 30, and score the prediction
+    against the actual values that were never shown to the model.
+
+    Deliberately does NOT reuse ProphetForecaster.forecast()'s own reported
+    `metrics` block — those are the in-sample/cross-validation numbers the model
+    computes about itself. The row asks whether the model is accurate, so MAE
+    and accuracy (100 − MAPE) are recomputed here from the raw predictions.
+
+    `_fit_model()` is used rather than `forecast()` because it is documented as
+    pure (it does not mutate self._model/self._meta), so this test cannot
+    disturb the model currently serving the other tests in this file.
+    """
+
+    TRAIN_DAYS   = 150
+    HOLDOUT_DAYS = 30
+    MAE_TARGET      = 5.0
+    ACCURACY_TARGET = 85.0
+
+    def test_mae_lt5_accuracy_gte85(self, synth):
+        from models.forecasting    import ProphetForecaster, _PROPHET_AVAILABLE
+        from data.data_cleaner     import DataCleaner
+        from data.feature_engineer import FeatureEngineer
+
+        if not _PROPHET_AVAILABLE:
+            pytest.skip("Prophet is not installed — model validation cannot run")
+
+        full     = synth.fault_time_series(days=self.TRAIN_DAYS + self.HOLDOUT_DAYS)
+        train_raw = full.iloc[:self.TRAIN_DAYS].copy()
+        holdout   = full.iloc[self.TRAIN_DAYS:][['ds', 'y']].copy()
+        assert len(holdout) == self.HOLDOUT_DAYS
+
+        clean_df, _ = DataCleaner().clean_time_series(train_raw, min_rows=30)
+        assert clean_df is not None, "150 days of seeded data must survive cleaning"
+
+        fe        = FeatureEngineer()
+        train_df  = fe.add_prophet_regressors(clean_df)
+        model, _  = ProphetForecaster()._fit_model(train_df)
+
+        future    = model.make_future_dataframe(periods=self.HOLDOUT_DAYS, freq='D')
+        enriched  = fe.add_regressors_to_future(future, float(train_df['y'].mean()))
+        predicted = model.predict(enriched)
+
+        cutoff = train_df['ds'].max()
+        pred   = predicted[predicted['ds'] > cutoff][['ds', 'yhat']]
+        scored = pred.merge(holdout, on='ds', how='inner')
+        assert len(scored) == self.HOLDOUT_DAYS, (
+            f"Expected {self.HOLDOUT_DAYS} scoreable holdout days, got {len(scored)} — "
+            "the predicted window and the holdout window do not line up"
+        )
+
+        abs_err  = (scored['yhat'] - scored['y']).abs()
+        mae      = float(abs_err.mean())
+        mape     = float((abs_err / scored['y'].clip(lower=1)).mean() * 100)
+        accuracy = 100.0 - mape
+
+        failures = []
+        if not mae < self.MAE_TARGET:
+            failures.append(
+                f"MAE {mae:.2f} is not < {self.MAE_TARGET} "
+                f"(mean actual daily faults over the holdout: {scored['y'].mean():.1f})"
+            )
+        if not accuracy >= self.ACCURACY_TARGET:
+            failures.append(
+                f"Accuracy {accuracy:.1f}% is not >= {self.ACCURACY_TARGET}% "
+                f"(MAPE {mape:.1f}%)"
+            )
+        assert not failures, (
+            "Prophet 30-day out-of-sample holdout misses the sheet's targets:\n  "
+            + "\n  ".join(failures)
+        )
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# CSV TRAINING GOVERNANCE — SHEET 10_AI_MODULE, ROW AI-023 (FR-30 / SRS 5.6.7)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_retrain_creates_candidate_not_active(synth, tmp_path):
+    """
+    AI-023 — retraining must produce a CANDIDATE and leave whatever is already
+    ACTIVE serving live traffic untouched; promotion happens only through the
+    explicit Activate Model gate (AI-024).
+
+    Runs against a throwaway ModelVersionRegistry rooted in tmp_path so the real
+    models/saved/versions/forecaster registry (which the running service loads
+    on boot) is neither read nor written by this test.
+    """
+    from models.forecasting    import ProphetForecaster
+    from models.model_registry import ModelVersionRegistry
+
+    forecaster = ProphetForecaster()
+    forecaster._registry = ModelVersionRegistry(tmp_path, 'forecaster')
+
+    # Pre-condition from the row: an ACTIVE version already exists. The stored
+    # object is never loaded by retrain() (only by activate_version()), so a
+    # plain picklable stand-in is enough and avoids fitting a second Prophet.
+    previous = forecaster._registry.save_version(
+        {'stand-in': 'previously activated forecaster'},
+        {'mae': 9.9, 'rmse': 11.1, 'accuracy': 60.0},
+        {'training_rows': 150},
+        status='active',
+    )
+
+    result = forecaster.retrain(synth.fault_time_series(days=180))
+    assert 'error' not in result, f"retrain() failed outright: {result}"
+
+    # 1. The new version is a candidate, by its own report and in the registry.
+    assert result['status'] == 'candidate'
+    by_id = {v['versionId']: v for v in forecaster._registry.list_versions()}
+    assert by_id[result['versionId']]['status'] == 'candidate', \
+        f"New version {result['versionId']} must be 'candidate', not auto-promoted"
+
+    # 2. The PREVIOUS version is still the one serving traffic.
+    assert by_id[previous['versionId']]['status'] == 'active'
+    assert forecaster._registry.get_active()['versionId'] == previous['versionId'], \
+        "Training silently changed which version is active — the Activate gate is decorative"
+
+    # 3. The comparison object reports new-vs-active deltas.
+    comparison = result['comparison']
+    assert comparison['previousVersionId'] == previous['versionId']
+    assert comparison['delta']['mae']['previous'] == 9.9
+    assert comparison['delta']['mae']['candidate'] == result['mae']
+    assert isinstance(comparison['delta']['mae']['improved'], bool)

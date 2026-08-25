@@ -35,6 +35,7 @@ import numpy as np
 import pandas as pd
 
 from config import Config
+from models.model_registry import ModelVersionRegistry, build_comparison
 
 logger = logging.getLogger('slt_ai.forecasting')
 
@@ -54,6 +55,11 @@ except ImportError:
 
 MODEL_SAVE_PATH = pathlib.Path(Config.MODEL_DIR) / 'prophet_model.pkl'
 META_SAVE_PATH  = pathlib.Path(Config.MODEL_DIR) / 'prophet_meta.pkl'
+
+# SRS 5.6.7 comparison direction — lower is better for error metrics,
+# higher is better for accuracy.
+_METRICS_LOWER_BETTER  = ['mae', 'rmse']
+_METRICS_HIGHER_BETTER = ['accuracy']
 
 # Prophet hyperparameters (tuned for SLT daily fault data)
 PROPHET_PARAMS = {
@@ -91,6 +97,7 @@ class ProphetForecaster:
         self._model:    Optional[object] = None  # fitted Prophet instance
         self._meta:     dict             = {}    # training metadata + metrics
         self._trained:  bool             = False
+        self._registry  = ModelVersionRegistry(Config.MODEL_DIR, 'forecaster')
         self._load_saved_model()
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -142,8 +149,11 @@ class ProphetForecaster:
         )
 
         if clean_df is None:
-            logger.warning("Insufficient data after cleaning — using fallback")
-            return self._fallback_forecast(raw_df, horizon)
+            logger.warning(
+                f"Insufficient historical data for forecast: "
+                f"{clean_stats.get('output_rows', 0)} rows < {Config.FORECAST_MIN_HISTORY_DAYS} required"
+            )
+            return self._insufficient_data_response(clean_stats, horizon)
 
         validation = cleaner.validate_for_prophet(clean_df)
         for w in validation.get('warnings', []):
@@ -152,7 +162,11 @@ class ProphetForecaster:
         # ── 2. Add regressors ────────────────────────────────────────────────
         train_df = fe.add_prophet_regressors(clean_df)
 
-        # ── 3. Train (or retrain if data has grown significantly) ────────────
+        # ── 3. Train (or refresh if data has grown significantly) — internal
+        #      freshness auto-refit, unrelated to admin CSV governance,
+        #      always was implicit/automatic. Admin-triggered, governed
+        #      retraining goes through retrain() + activate_version()
+        #      instead (SRS 5.6.7). ─────────────────────────────────────────
         should_retrain = (
             not self._trained
             or len(train_df) > self._meta.get('training_rows', 0) + 30
@@ -171,8 +185,11 @@ class ProphetForecaster:
 
     def retrain(self, raw_df: pd.DataFrame) -> dict:
         """
-        Force a full retrain with new data and return updated metrics.
-        Called by POST /api/ai/retrain.
+        SRS 5.6.7 CSV training governance — fits a CANDIDATE model and returns
+        it with a metrics comparison against the currently active version.
+        Does NOT touch the model currently serving forecasts; the candidate
+        only goes live once activate_version() is explicitly called.
+        Called from app.py's background training job (POST /api/ai/train).
         """
         from data.data_cleaner     import DataCleaner
         from data.feature_engineer import FeatureEngineer
@@ -180,28 +197,93 @@ class ProphetForecaster:
         cleaner = DataCleaner()
         fe      = FeatureEngineer()
 
-        clean_df, _ = cleaner.clean_time_series(raw_df, min_rows=30)
+        clean_df, clean_stats = cleaner.clean_time_series(
+            raw_df, min_rows=Config.FORECAST_MIN_HISTORY_DAYS,
+        )
         if clean_df is None:
-            return {'error': 'Insufficient data for retraining'}
+            return {
+                'error': (
+                    f"Insufficient data for retraining: "
+                    f"{clean_stats.get('output_rows', 0)} days < "
+                    f"{Config.FORECAST_MIN_HISTORY_DAYS} required."
+                ),
+            }
 
         train_df = fe.add_prophet_regressors(clean_df)
-        self._train(train_df)
+        model, meta = self._fit_model(train_df)
+        metrics = self._compute_cv_metrics(train_df, model=model, meta=meta)
+        meta['cv_metrics'] = metrics
 
-        metrics = self._compute_cv_metrics(train_df)
-        self._meta['cv_metrics'] = metrics
-        self._save_model()
+        candidate  = self._registry.save_version(model, metrics, meta, status='candidate')
+        comparison = build_comparison(
+            self._registry.get_active(), candidate,
+            lower_is_better=_METRICS_LOWER_BETTER,
+            higher_is_better=_METRICS_HIGHER_BETTER,
+        )
 
-        logger.info(f"Retrain complete — MAE={metrics.get('mae')}, RMSE={metrics.get('rmse')}")
-        return metrics
+        logger.info(
+            f"Candidate version {candidate['versionId']} created — "
+            f"MAE={metrics.get('mae')}, RMSE={metrics.get('rmse')} (awaiting Activate Model)"
+        )
+        return {
+            **metrics,
+            'versionId':  candidate['versionId'],
+            'status':     'candidate',
+            'comparison': comparison,
+        }
+
+    def activate_version(self, version_id: int) -> dict:
+        """Explicit admin action — promotes a candidate to the active, serving model."""
+        entry = self._registry.activate(version_id)
+        self._model   = self._registry.load_object(version_id)
+        self._meta    = entry['meta']
+        self._trained = True
+        logger.info(f"Forecaster: activated version {version_id}")
+        return entry
+
+    def rollback(self, version_id: Optional[int] = None) -> dict:
+        """Revert the active model. Defaults to the immediately-previous active version."""
+        entry = self._registry.rollback(version_id)
+        self._model   = self._registry.load_object(entry['versionId'])
+        self._meta    = entry['meta']
+        self._trained = True
+        logger.info(f"Forecaster: rolled back to version {entry['versionId']}")
+        return entry
+
+    def list_versions(self) -> list:
+        return self._registry.list_versions()
 
     # ─────────────────────────────────────────────────────────────────────────
     # PRIVATE — TRAINING
     # ─────────────────────────────────────────────────────────────────────────
 
     def _train(self, train_df: pd.DataFrame) -> None:
-        """Fit Prophet model on the cleaned + enriched training DataFrame."""
+        """
+        Fit and immediately activate. Used only for the internal freshness
+        auto-refit inside forecast() (keeping live DB/synthetic-sourced
+        forecasts current) and initial bootstrap training — this is not the
+        admin-triggered CSV governance flow, so no candidate gate applies
+        here. Governed retraining goes through retrain() + activate_version()
+        instead (SRS 5.6.7).
+        """
         logger.info(f"Training Prophet on {len(train_df)} days of data…")
 
+        m, meta = self._fit_model(train_df)
+        self._model   = m
+        self._trained = True
+        self._meta    = meta
+
+        # Quick in-sample accuracy estimate (faster than cross-validation)
+        self._meta['in_sample_metrics'] = self._compute_in_sample_metrics(train_df, model=m, meta=meta)
+        self._registry.save_version(m, self._meta['in_sample_metrics'], self._meta, status='active')
+        logger.info(f"Prophet trained — in-sample MAE={self._meta['in_sample_metrics'].get('mae')}")
+
+    def _fit_model(self, train_df: pd.DataFrame):
+        """
+        Fit a fresh Prophet model on train_df. Pure — does not mutate
+        self._model/self._meta, so it's safe to use for candidate evaluation
+        without affecting what's currently serving forecasts.
+        """
         m = Prophet(**PROPHET_PARAMS)
 
         # Add Sri Lanka regressors
@@ -215,26 +297,27 @@ class ProphetForecaster:
         # Fit
         m.fit(train_df[['ds', 'y'] + [r for r in EXTRA_REGRESSORS if r in train_df.columns]])
 
-        self._model   = m
-        self._trained = True
-        self._meta = {
+        meta = {
             'training_rows': len(train_df),
             'date_min':      str(train_df['ds'].min().date()),
             'date_max':      str(train_df['ds'].max().date()),
             'mean_y':        round(float(train_df['y'].mean()), 2),
             'last_trained':  datetime.utcnow().isoformat() + 'Z',
         }
+        return m, meta
 
-        # Quick in-sample accuracy estimate (faster than cross-validation)
-        self._meta['in_sample_metrics'] = self._compute_in_sample_metrics(train_df)
-        self._save_model()
-        logger.info(f"Prophet trained — in-sample MAE={self._meta['in_sample_metrics'].get('mae')}")
-
-    def _compute_in_sample_metrics(self, train_df: pd.DataFrame) -> dict:
+    def _compute_in_sample_metrics(self, train_df: pd.DataFrame,
+                                    model: Optional[object] = None,
+                                    meta: Optional[dict] = None) -> dict:
         """
         Compute in-sample MAE, RMSE and accuracy estimate.
         Uses last 30 days as a holdout for quick evaluation.
+
+        model/meta default to the live self._model/self._meta, but callers
+        evaluating a not-yet-activated candidate must pass them explicitly.
         """
+        model = model if model is not None else self._model
+        meta  = meta  if meta  is not None else self._meta
         try:
             from data.feature_engineer import FeatureEngineer
             fe = FeatureEngineer()
@@ -248,7 +331,7 @@ class ProphetForecaster:
                 holdout[['ds']].copy(),
                 historical_mean=float(train_df['y'].mean())
             )
-            forecast = self._model.predict(pred_input)
+            forecast = model.predict(pred_input)
 
             actual    = holdout['y'].values
             predicted = forecast['yhat'].values[:len(actual)]
@@ -267,23 +350,30 @@ class ProphetForecaster:
                 'mape':          round(mape, 1),
                 'accuracy':      accuracy,
                 'trainingDays':  len(train_df),
-                'lastTrained':   self._meta.get('last_trained'),
+                'lastTrained':   meta.get('last_trained'),
             }
         except Exception as exc:
             logger.warning(f"In-sample metrics error: {exc}")
             return {'mae': None, 'rmse': None, 'accuracy': None}
 
-    def _compute_cv_metrics(self, train_df: pd.DataFrame) -> dict:
+    def _compute_cv_metrics(self, train_df: pd.DataFrame,
+                             model: Optional[object] = None,
+                             meta: Optional[dict] = None) -> dict:
         """
         Full cross-validation (slower, used by /retrain endpoint).
         Uses Prophet's built-in cross_validation with rolling window.
+
+        model/meta default to the live self._model/self._meta, but callers
+        evaluating a not-yet-activated candidate must pass them explicitly.
         """
+        model = model if model is not None else self._model
+        meta  = meta  if meta  is not None else self._meta
         try:
             if not _PROPHET_AVAILABLE or len(train_df) < 180:
-                return self._compute_in_sample_metrics(train_df)
+                return self._compute_in_sample_metrics(train_df, model=model, meta=meta)
 
             cv_results = cross_validation(
-                self._model,
+                model,
                 initial='180 days',
                 period='30 days',
                 horizon='30 days',
@@ -297,12 +387,12 @@ class ProphetForecaster:
                 'mape':         round(float(row['mape']) * 100, 1),
                 'accuracy':     round(max(0.0, 100.0 - float(row['mape']) * 100), 1),
                 'trainingDays': len(train_df),
-                'lastTrained':  self._meta.get('last_trained'),
+                'lastTrained':  meta.get('last_trained'),
                 'horizon':      30,
             }
         except Exception as exc:
             logger.warning(f"CV metrics error: {exc}")
-            return self._compute_in_sample_metrics(train_df)
+            return self._compute_in_sample_metrics(train_df, model=model, meta=meta)
 
     # ─────────────────────────────────────────────────────────────────────────
     # PRIVATE — RESPONSE BUILDING
@@ -312,7 +402,7 @@ class ProphetForecaster:
         self,
         train_df: pd.DataFrame,
         raw_forecast: pd.DataFrame,
-        horizon: int
+        horizon: int,
     ) -> dict:
         """Convert Prophet forecast DataFrame into the API response dict."""
 
@@ -379,6 +469,41 @@ class ProphetForecaster:
             'weeklyPattern':   weekly_pattern,
         }
 
+    def _insufficient_data_response(self, clean_stats: dict, horizon: int) -> dict:
+        """
+        SRS 5.6.2 — real (if any) historical data doesn't meet the 6-month
+        minimum (Config.FORECAST_MIN_HISTORY_DAYS). Returns an explicit,
+        honest state instead of silently substituting a fake-looking
+        forecast: callers (app.py's predictions/dashboard handlers, and
+        FR-33's resource-plan later) must check `insufficientData` before
+        treating the rest of this dict as a real result. This is a distinct
+        condition from `_fallback_forecast` (Prophet not installed) — the
+        two calling app.py's endpoint should not be conflated, since one is
+        a data-availability problem and the other is an environment/
+        deployment problem.
+
+        historical/forecast/metrics keep the SAME keys as a real forecast
+        response (just empty/None) rather than omitting them, so existing
+        callers that do `(d.forecast || []).map(...)` need no changes.
+        """
+        return {
+            'insufficientData': True,
+            'historyDays':      clean_stats.get('output_rows', 0),
+            'requiredDays':     Config.FORECAST_MIN_HISTORY_DAYS,
+            'historical':       [],
+            'forecast':         [],
+            'metrics': {
+                'mae': None, 'rmse': None, 'accuracy': None,
+                'trainingDays': clean_stats.get('output_rows', 0),
+                'horizon': horizon,
+                'lastTrained': None,
+            },
+            'trend':           None,
+            'trendPercent':    None,
+            'nextPeriodTotal':  None,
+            'weeklyPattern':    [],
+        }
+
     def _fallback_forecast(self, raw_df: pd.DataFrame, horizon: int) -> dict:
         """
         Simple linear extrapolation fallback when Prophet is unavailable.
@@ -436,34 +561,45 @@ class ProphetForecaster:
     # PRIVATE — PERSISTENCE
     # ─────────────────────────────────────────────────────────────────────────
 
-    def _save_model(self) -> None:
-        """Serialise trained Prophet model and metadata to disk."""
-        try:
-            MODEL_SAVE_PATH.parent.mkdir(parents=True, exist_ok=True)
-            with open(MODEL_SAVE_PATH, 'wb') as f:
-                pickle.dump(self._model, f)
-            with open(META_SAVE_PATH, 'wb') as f:
-                pickle.dump(self._meta, f)
-            logger.info(f"Model saved to {MODEL_SAVE_PATH}")
-        except Exception as exc:
-            logger.warning(f"Model save failed: {exc}")
-
     def _load_saved_model(self) -> None:
-        """Load a previously trained model from disk if available."""
-        if not MODEL_SAVE_PATH.exists() or not META_SAVE_PATH.exists():
+        """Load the currently active version from the registry, if any."""
+        active = self._registry.get_active() or self._migrate_legacy_model()
+        if active is None:
             logger.info("No saved Prophet model found — will train on first request")
             return
         try:
-            with open(MODEL_SAVE_PATH, 'rb') as f:
-                self._model = pickle.load(f)
-            with open(META_SAVE_PATH, 'rb') as f:
-                self._meta = pickle.load(f)
+            self._model   = self._registry.load_object(active['versionId'])
+            self._meta    = active['meta']
             self._trained = True
             logger.info(
-                f"Loaded saved Prophet model "
-                f"(trained {self._meta.get('last_trained', 'unknown')})"
+                f"Loaded saved Prophet model (version {active['versionId']}, "
+                f"trained {self._meta.get('last_trained', 'unknown')})"
             )
         except Exception as exc:
             logger.warning(f"Could not load saved model: {exc}")
             self._model   = None
             self._trained = False
+
+    def _migrate_legacy_model(self) -> Optional[dict]:
+        """
+        One-time import of the pre-versioning fixed-path pickle (if present)
+        as version 1/active, so switching to the registry doesn't strand a
+        model that was already trained and serving before this change.
+        """
+        if not MODEL_SAVE_PATH.exists() or not META_SAVE_PATH.exists():
+            return None
+        try:
+            with open(MODEL_SAVE_PATH, 'rb') as f:
+                model = pickle.load(f)
+            with open(META_SAVE_PATH, 'rb') as f:
+                meta = pickle.load(f)
+            metrics = meta.get('in_sample_metrics') or {}
+            entry = self._registry.save_version(model, metrics, meta, status='active')
+            logger.info(
+                f"Migrated legacy prophet_model.pkl into version registry "
+                f"as version {entry['versionId']}"
+            )
+            return entry
+        except Exception as exc:
+            logger.warning(f"Legacy model migration failed: {exc}")
+            return None

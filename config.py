@@ -38,7 +38,13 @@ def setup_logging() -> logging.Logger:
     root = logging.getLogger()
     root.setLevel(log_level)
 
-    # Console handler
+    # Console handler — reconfigure to UTF-8 so emoji in log messages don't
+    # crash logging on Windows' default cp1252 console encoding.
+    if hasattr(sys.stdout, 'reconfigure'):
+        try:
+            sys.stdout.reconfigure(encoding='utf-8')
+        except Exception:
+            pass
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(log_level)
     ch.setFormatter(formatter)
@@ -94,10 +100,14 @@ class Config:
     # AI model settings
     MODEL_DIR               : str   = os.getenv('MODEL_DIR', './models/saved')
     FORECAST_HORIZON_DAYS   : int   = int(os.getenv('FORECAST_HORIZON_DAYS', 30))
-    FORECAST_MIN_HISTORY_DAYS: int  = int(os.getenv('FORECAST_MIN_HISTORY_DAYS', 90))
+    # Spec §5.6.1: fall back to synthetic data when real history is < 6 months
+    FORECAST_MIN_HISTORY_DAYS: int  = int(os.getenv('FORECAST_MIN_HISTORY_DAYS', 180))
     KMEANS_N_CLUSTERS       : int   = int(os.getenv('KMEANS_N_CLUSTERS', 5))
     KMEANS_RANDOM_STATE     : int   = int(os.getenv('KMEANS_RANDOM_STATE', 42))
     ROUTE_SEARCH_RADIUS_KM  : float = float(os.getenv('ROUTE_SEARCH_RADIUS_KM', 50))
+    # Average travel speed assumption for shortest-path ETA (FR-29, SRS 5.6.6).
+    # Matches fieldops' LocationService ETA assumption (30 km/h) for consistency.
+    ROUTE_AVG_SPEED_KMH     : float = float(os.getenv('ROUTE_AVG_SPEED_KMH', 30))
     RETRAIN_INTERVAL_HOURS  : int   = int(os.getenv('RETRAIN_INTERVAL_HOURS', 24))
 
     # Sri Lanka geographic bounds
@@ -187,3 +197,27 @@ def is_db_available() -> bool:
         return True
     except Exception:
         return False
+
+
+def has_sufficient_history(row_count: int, min_days: int = None) -> bool:
+    """
+    SRS 5.6.2 (and 5.6.8 FR-33, which reuses the same rule) — single source
+    of truth for whether `row_count` days of historical data meets the
+    minimum required for a real forecast, instead of a synthetic/fallback
+    substitute.
+
+    Previously this comparison was duplicated inline in three places (app.py's
+    /api/ai/predictions and /api/ai/dashboard handlers checking a raw fetched
+    row count, and data_cleaner.clean_time_series checking a post-cleaning
+    row count) — which could disagree with each other for the same underlying
+    data, since cleaning can drop rows. There is now exactly one place this
+    ">=" comparison is made.
+
+    Args:
+        row_count: Number of days of historical data available.
+        min_days:  Override threshold (e.g. a CSV-retraining path that uses a
+                   deliberately lower bar than the live-forecast minimum).
+                   Defaults to Config.FORECAST_MIN_HISTORY_DAYS.
+    """
+    threshold = Config.FORECAST_MIN_HISTORY_DAYS if min_days is None else min_days
+    return row_count >= threshold

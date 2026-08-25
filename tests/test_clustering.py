@@ -315,3 +315,264 @@ class TestKMeansClusterer:
         kc = KMeansClusterer()
         name = kc._nearest_district_name(7.2906, 80.6337)
         assert name == 'Kandy'
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# MODEL VALIDATION — SHEET 10_AI_MODULE, ROW AI-007 (FR-27)
+# ═════════════════════════════════════════════════════════════════════════════
+
+class TestModelValidation:
+    """
+    AI-007 — the silhouette score the clusterer reports must be a real number in
+    [-1, 1] AND strictly positive, i.e. the clustering is genuinely better than
+    an arbitrary partition.
+
+    TestKMeansClusterer::test_silhouette_score_range above only checks the range
+    *if* a score is present, so a clusterer that silently reported None, or a
+    negative (worse-than-random) score, would pass it. This row asks the
+    stronger question, so it is asserted separately rather than folded in.
+    """
+
+    def test_silhouette_score_positive(self, cluster_result):
+        score = cluster_result.get('silhouetteScore')
+        assert score is not None, (
+            "cluster() reported no silhouetteScore at all — cluster quality is "
+            "unmeasured, so the model cannot be validated"
+        )
+        assert -1.0 <= score <= 1.0, f"Silhouette score {score} outside [-1, 1]"
+        assert score > 0, (
+            f"Silhouette score {score} is not > 0 — the clusters are no better "
+            "separated than an arbitrary partition of the same points"
+        )
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# ACCURACY TARGET — SHEET 10_AI_MODULE, ROW AI-016 (FR-27 / SRS 5.6.3)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_silhouette_score_target(clusterer, raw_gps):
+    """
+    AI-016 — SRS 5.6.3's clustering accuracy target: silhouette > 0.5
+    ("well-separated, meaningful clusters"), plus a finite positive inertia.
+
+    The score is recomputed here directly from sklearn against the fitted
+    model's own labels rather than trusting the number cluster() reports, and
+    the two are then cross-checked against each other — so this fails loudly
+    if the reported figure ever drifts away from the real one.
+    """
+    from sklearn.metrics       import silhouette_score
+    from data.data_cleaner     import DataCleaner
+    from data.feature_engineer import FeatureEngineer
+
+    result = clusterer.cluster(raw_gps, n_clusters=5)
+
+    clean_df, _ = DataCleaner().clean_gps_points(raw_gps, min_points=20)
+    assert clean_df is not None
+    X      = FeatureEngineer().get_cluster_features(clean_df)
+    labels = clusterer._model.predict(X)
+
+    score = float(silhouette_score(X, labels))
+
+    # The reported figure is the real one (rounded to 3 dp by the model).
+    assert score == pytest.approx(result['silhouetteScore'], abs=1e-3), (
+        f"Reported silhouetteScore {result['silhouetteScore']} does not match "
+        f"an independently computed {score:.4f}"
+    )
+
+    inertia = float(clusterer._model.inertia_)
+    assert math.isfinite(inertia), f"Inertia is not finite: {inertia}"
+    assert inertia > 0, f"Inertia must be positive, got {inertia}"
+
+    assert score > 0.5, (
+        f"Silhouette score {score:.3f} is not > 0.5 — SRS 5.6.3's clustering "
+        f"accuracy target is not met on {len(clean_df)} fault GPS points at k=5"
+    )
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# H3 — CATEGORICAL FALLBACK FOR EXCHANGEAREA-ONLY DATA (no GPS)
+# ═════════════════════════════════════════════════════════════════════════════
+# The real WFMS export (confirmed against a real sample) has EXCHANGEAREA
+# codes (DGD, AD, KY, CEN, MHG, KG, ...) and NO latitude/longitude at all.
+# Exchange has no coordinates either (Stage C scaffolding only), so there is
+# nothing to geocode a code into — cluster_by_exchange_area() groups directly
+# by the code instead of coercing it through K-Means's raw [lat,lng] fit.
+
+class TestExchangeAreaCategoricalFallback:
+
+    def _area_df(self):
+        """
+        20 rows across 3 exchange-area codes: DGD (10 -> 50%, HIGH),
+        AD (6 -> 30%, HIGH... use thresholds carefully), KY (4 -> 20%, MEDIUM).
+        Recomputed below with exact counts to hit each risk band deliberately.
+        """
+        rows = (
+            [{'exchange_area': 'DGD', 'category': 'BROADBAND', 'created_at': '2026-01-01'}] * 10 +
+            [{'exchange_area': 'AD',  'category': 'FIBER',     'created_at': '2026-01-01'}] * 6 +
+            [{'exchange_area': 'KY',  'category': 'PHONE',     'created_at': '2026-01-01'}] * 3 +
+            [{'exchange_area': 'CEN', 'category': 'TV',        'created_at': '2026-01-01'}] * 1
+        )
+        return pd.DataFrame(rows)
+
+    def test_one_group_per_unique_exchange_area_code(self, clusterer):
+        result = clusterer.cluster_by_exchange_area(self._area_df())
+        codes = {c['regionName'] for c in result['clusters']}
+        assert codes == {'DGD', 'AD', 'KY', 'CEN'}, (
+            f"Expected one group per unique EXCHANGEAREA code, got regionNames {codes}"
+        )
+        assert result['nClusters'] == 4
+        assert result['totalFaults'] == 20
+
+    def test_ranked_by_fault_count_descending(self, clusterer):
+        result = clusterer.cluster_by_exchange_area(self._area_df())
+        counts = [c['faultCount'] for c in result['clusters']]
+        assert counts == sorted(counts, reverse=True), (
+            f"Clusters must be ranked by faultCount descending, got {counts}"
+        )
+        assert result['clusters'][0]['regionName'] == 'DGD'
+        assert result['clusters'][0]['faultCount'] == 10
+
+    def test_risk_levels_match_the_same_thresholds_as_kmeans(self, clusterer):
+        """DGD=10/20=50% HIGH, AD=6/20=30% HIGH, KY=3/20=15% MEDIUM, CEN=1/20=5% LOW."""
+        result = clusterer.cluster_by_exchange_area(self._area_df())
+        by_area = {c['regionName']: c for c in result['clusters']}
+        assert by_area['DGD']['riskLevel'] == 'HIGH'
+        assert by_area['AD']['riskLevel']  == 'HIGH'
+        assert by_area['KY']['riskLevel']  == 'MEDIUM'
+        assert by_area['CEN']['riskLevel'] == 'LOW'
+
+    def test_top_category_computed_per_group(self, clusterer):
+        result = clusterer.cluster_by_exchange_area(self._area_df())
+        by_area = {c['regionName']: c for c in result['clusters']}
+        assert by_area['DGD']['topCategory'] == 'BROADBAND'
+        assert by_area['AD']['topCategory']  == 'FIBER'
+        assert by_area['KY']['topCategory']  == 'PHONE'
+
+    def test_no_coordinate_is_fabricated(self, clusterer):
+        """
+        No geocoding exists for an exchange-area code — centroid/density must
+        be genuinely absent, not a placeholder like {0,0} or a copied district.
+        """
+        result = clusterer.cluster_by_exchange_area(self._area_df())
+        for c in result['clusters']:
+            assert c['centroid'] is None, f"{c['regionName']} has a fabricated centroid: {c['centroid']}"
+            assert c['density']  is None, f"{c['regionName']} has a fabricated density: {c['density']}"
+
+    def test_silhouette_score_is_none_not_a_fitted_model(self, clusterer):
+        """This is a groupby, not K-Means — no cluster-quality metric applies."""
+        result = clusterer.cluster_by_exchange_area(self._area_df())
+        assert result['silhouetteScore'] is None
+
+    def test_response_shape_matches_kmeans_cluster_keys(self, clusterer):
+        """
+        Same per-cluster keys as cluster()'s K-Means output, so a caller that
+        already knows how to read a cluster() result doesn't need a second
+        parsing path — only centroid/density genuinely differ (None vs real).
+        """
+        result = clusterer.cluster_by_exchange_area(self._area_df())
+        expected_keys = {
+            'clusterId', 'rank', 'regionName', 'faultCount', 'faultPercent',
+            'riskLevel', 'riskScore', 'topCategory', 'centroid', 'density',
+            'techniciansNeeded', 'color',
+        }
+        for c in result['clusters']:
+            assert expected_keys.issubset(c.keys()), (
+                f"Missing keys vs cluster()'s shape: {expected_keys - c.keys()}"
+            )
+
+    def test_opmc_code_column_is_ignored_as_a_grouping_key(self, clusterer):
+        """
+        opmc_code rides along as passthrough metadata (see upload_manager.py) —
+        it must not silently become a second grouping dimension or change the
+        exchange-area group count.
+        """
+        df = self._area_df()
+        df['opmc_code'] = ['KTOP'] * 10 + ['ADOP'] * 6 + ['KYOP'] * 3 + ['HOOP'] * 1
+        result = clusterer.cluster_by_exchange_area(df)
+        assert result['nClusters'] == 4, (
+            "opmc_code must not affect the exchange-area grouping"
+        )
+
+    def test_empty_input_returns_empty_result_not_an_error(self, clusterer):
+        result = clusterer.cluster_by_exchange_area(pd.DataFrame())
+        assert result['clusters'] == []
+        assert result['totalFaults'] == 0
+        assert result['nClusters'] == 0
+
+    def test_missing_exchange_area_column_returns_empty_result(self, clusterer):
+        df = pd.DataFrame({'category': ['BROADBAND'], 'created_at': ['2026-01-01']})
+        result = clusterer.cluster_by_exchange_area(df)
+        assert result['clusters'] == []
+
+
+class TestH1dAdditiveColumnsDoNotAffectClustering:
+    """
+    H1d (2026-08-21): get_faults_with_location() now also selects circuit_id,
+    nearest_exchange_id, nearest_exchange_distance_km alongside latitude/
+    longitude, purely so a clustered fault can be cross-referenced against
+    its stable Exchange/Circuit. GPS remains the sole input to the actual
+    K-Means fit (see FeatureEngineer.get_cluster_features()'s explicit
+    [latitude, longitude] slice, and DataCleaner.clean_gps_points()'s
+    dropna/drop_duplicates, both scoped to the lat/lng columns by name).
+
+    This proves that claim end-to-end: cluster() run on the same GPS/
+    category/status/priority data, once with the three new columns present
+    and once without, must produce byte-for-byte identical output.
+    """
+
+    def _with_new_columns(self, raw_gps):
+        df = raw_gps.copy()
+        n = len(df)
+        # Deliberately mixed non-null/null values, mirroring real data where
+        # most faults still have NULL circuit_id/nearest_exchange_id today.
+        df['circuit_id'] = [188016 + (i % 7) if i % 3 else None for i in range(n)]
+        df['nearest_exchange_id'] = [32 + (i % 5) if i % 2 else None for i in range(n)]
+        df['nearest_exchange_distance_km'] = [
+            round(0.5 + (i % 11) * 0.37, 2) if i % 2 else None for i in range(n)
+        ]
+        return df
+
+    def test_cluster_output_identical_with_and_without_new_columns(self, clusterer, raw_gps):
+        without_cols = raw_gps.copy()
+        with_cols = self._with_new_columns(raw_gps)
+
+        result_without = clusterer.cluster(without_cols, n_clusters=5)
+        result_with = clusterer.cluster(with_cols, n_clusters=5)
+
+        assert result_with == result_without, (
+            "Adding circuit_id/nearest_exchange_id/nearest_exchange_distance_km "
+            "changed K-Means clustering output -- these columns must be inert."
+        )
+
+    def test_per_row_cluster_assignments_identical_with_and_without_new_columns(self, clusterer, raw_gps):
+        """Same proof at the row-assignment level, not just the summarised dict."""
+        from data.data_cleaner import DataCleaner
+        from data.feature_engineer import FeatureEngineer
+
+        without_cols = raw_gps.copy()
+        with_cols = self._with_new_columns(raw_gps)
+
+        cleaner = DataCleaner()
+        engineer = FeatureEngineer()
+
+        clean_without, _ = cleaner.clean_gps_points(without_cols, min_points=10)
+        clean_with, _ = cleaner.clean_gps_points(with_cols, min_points=10)
+
+        assert len(clean_without) == len(clean_with), (
+            "The new columns changed how many rows survive GPS cleaning."
+        )
+
+        features_without = engineer.get_cluster_features(clean_without)
+        features_with = engineer.get_cluster_features(clean_with)
+        assert np.array_equal(features_without, features_with), (
+            "The new columns changed the feature matrix fed to K-Means."
+        )
+
+        # Fit independently on each feature matrix (identical values -> identical fit)
+        from sklearn.cluster import KMeans
+        labels_without = KMeans(n_clusters=5, random_state=42, n_init=10).fit_predict(features_without)
+        labels_with = KMeans(n_clusters=5, random_state=42, n_init=10).fit_predict(features_with)
+        assert np.array_equal(labels_without, labels_with), (
+            "Per-row cluster assignments differ depending on whether the new "
+            "columns are present -- clustering must be based on GPS alone."
+        )

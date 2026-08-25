@@ -117,9 +117,13 @@ class FeatureEngineer:
             df['fault_lag_7']  = df['y'].shift(7).fillna(0)
             df['fault_lag_14'] = df['y'].shift(14).fillna(0)
         else:
-            # Inference mode — set rolling/lag to 0 (Prophet will ignore)
+            # Inference mode — no 'y' to compute these from. Leave as NaN so
+            # add_regressors_to_future() can fill them with a sensible
+            # historical-mean placeholder instead of a literal zero (these
+            # are trained as multiplicative regressors strongly correlated
+            # with y, so feeding 0 here collapses the forecast toward 0).
             for col in ['rolling_mean_7','rolling_mean_30','fault_lag_7','fault_lag_14']:
-                df[col] = 0.0
+                df[col] = np.nan
 
         logger.debug(f"Added {len(df.columns) - 2} regressor columns")
         return df

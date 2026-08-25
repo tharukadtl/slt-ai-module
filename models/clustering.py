@@ -35,6 +35,7 @@ import pandas as pd
 
 from config import Config
 from data.feature_engineer import haversine_km
+from models.model_registry import ModelVersionRegistry, build_comparison
 
 logger = logging.getLogger('slt_ai.clustering')
 
@@ -54,6 +55,15 @@ except ImportError:
 
 MODEL_SAVE_PATH = pathlib.Path(Config.MODEL_DIR) / 'kmeans_model.pkl'
 META_SAVE_PATH  = pathlib.Path(Config.MODEL_DIR) / 'kmeans_meta.pkl'
+
+# SRS 5.6.7 requires a metrics comparison, but its named metrics (MAE, RMSE,
+# Accuracy) are Prophet-specific and meaningless for K-Means. Substituting
+# the model's own native quality metrics: inertia (lower is better — tighter
+# clusters) and silhouette score (higher is better — better-separated
+# clusters). See conversation record for this being an explicit judgment
+# call, not a spec-stated pair.
+_METRICS_LOWER_BETTER  = ['inertia']
+_METRICS_HIGHER_BETTER = ['silhouetteScore']
 
 # Risk thresholds — faults per cluster as % of total
 RISK_HIGH_PCT   = 0.25   # top 25% of total = HIGH
@@ -80,6 +90,7 @@ class KMeansClusterer:
         self._scaler:  Optional[object] = None
         self._meta:    dict             = {}
         self._trained: bool             = False
+        self._registry = ModelVersionRegistry(Config.MODEL_DIR, 'clusterer')
         self._load_saved_model()
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -131,7 +142,11 @@ class KMeansClusterer:
         fe = FeatureEngineer()
         X  = fe.get_cluster_features(clean_df)      # shape (n, 2)
 
-        # ── 3. Fit K-Means ────────────────────────────────────────────────────
+        # ── 3. Fit (or refresh if data has changed) — internal freshness
+        #      auto-refit, unrelated to admin CSV governance, always was
+        #      implicit/automatic. Admin-triggered, governed retraining
+        #      goes through retrain() + activate_version() instead
+        #      (SRS 5.6.7). ────────────────────────────────────────────────
         should_refit = (
             not self._trained
             or self._meta.get('n_clusters')    != n_clusters
@@ -161,57 +176,279 @@ class KMeansClusterer:
             'fittedAt':       self._meta.get('fitted_at'),
         }
 
+    def cluster_by_exchange_area(self, category_df: pd.DataFrame) -> dict:
+        """
+        Categorical fallback for CSVs with an EXCHANGEAREA column but no GPS —
+        the real WFMS export shape (confirmed against a real sample: exchange-
+        area codes like DGD/AD/KY/CEN/MHG/KG, no latitude/longitude at all).
+
+        Not a K-Means variant. `get_cluster_features()` fits raw [lat, lng]
+        Euclidean distance, and `_build_cluster_summaries()` computes a
+        centroid and a bounding-box density from those coordinates — coercing
+        a categorical code through that (e.g. hashing it into a fake number)
+        would produce a meaningless centroid/"nearest district"/density for a
+        value that was never a coordinate. Exchange has no coordinates in
+        this system either (Stage C scaffolding only — see Exchange.java's
+        own "No coordinates yet" comment), so there is nothing to geocode a
+        code into even if one wanted to. Grouping directly by the code IS the
+        zone here — each unique EXCHANGEAREA value is already the ground-
+        truth partition, no fitting required.
+
+        Mirrors cluster()'s output shape (same keys per cluster entry) so a
+        caller that already knows how to render cluster() results doesn't
+        need a second rendering path — centroid/density are genuinely
+        `None`, not faked with a placeholder, since no coordinate exists.
+
+        Args:
+            category_df: DataFrame with an 'exchange_area' column (see
+                UploadManager.to_exchange_area_groups()), optionally
+                'category'. 'opmc_code' is ignored here — it rides along in
+                the DataFrame only as passthrough metadata, not a grouping
+                key (see upload_manager.py's module docstring for why it
+                isn't resolved against a real Opmc row).
+
+        Returns:
+            {clusters, totalFaults, silhouetteScore: None, nClusters, note}
+            — one entry in `clusters` per unique exchange-area code, ranked
+            by fault count descending, not capped at Config.KMEANS_N_CLUSTERS
+            (unlike cluster(), the number of groups is however many distinct
+            codes the data actually has, not a fitted k).
+        """
+        if category_df is None or category_df.empty or 'exchange_area' not in category_df.columns:
+            return {
+                'clusters':        [],
+                'totalFaults':     0,
+                'silhouetteScore': None,
+                'nClusters':       0,
+                'note':            'No exchange-area rows to group.',
+            }
+
+        df = category_df.copy()
+        df['exchange_area'] = df['exchange_area'].astype(str).str.strip()
+        total_faults = len(df)
+
+        counts = df.groupby('exchange_area').size().sort_values(ascending=False)
+
+        cat_by_group = {}
+        if 'category' in df.columns:
+            for area in counts.index:
+                subset = df[df['exchange_area'] == area]
+                cat_by_group[area] = (
+                    subset['category'].value_counts().idxmax() if not subset.empty else 'UNKNOWN'
+                )
+
+        clusters = []
+        for rank, (area, fault_count) in enumerate(counts.items()):
+            fault_pct = fault_count / max(total_faults, 1)
+
+            if   fault_pct >= RISK_HIGH_PCT:   risk_level = 'HIGH'
+            elif fault_pct >= RISK_MEDIUM_PCT: risk_level = 'MEDIUM'
+            else:                              risk_level = 'LOW'
+
+            clusters.append({
+                'clusterId':         rank,
+                'rank':              rank + 1,
+                'regionName':        area,  # the exchange-area code itself — no geocoding exists to resolve a human-readable name
+                'faultCount':        int(fault_count),
+                'faultPercent':      round(fault_pct * 100, 1),
+                'riskLevel':         risk_level,
+                'riskScore':         round(fault_pct * 100, 1),
+                'topCategory':       cat_by_group.get(area, 'UNKNOWN'),
+                'centroid':          None,  # no coordinate exists for an exchange-area code
+                'density':           None,  # density needs an area in km², which needs a coordinate
+                'techniciansNeeded': max(1, math.ceil(fault_count / 20)),
+                'color':             CLUSTER_COLORS[rank % len(CLUSTER_COLORS)],
+            })
+
+        return {
+            'clusters':        clusters,
+            'totalFaults':     total_faults,
+            'silhouetteScore': None,  # not a fitted model — no cluster-quality metric applies
+            'nClusters':       len(clusters),
+            'note':            'Categorical grouping by EXCHANGEAREA — source data has no GPS, '
+                                'so this is not K-Means geographic clustering.',
+        }
+
     def retrain(self, gps_df: pd.DataFrame) -> dict:
-        """Force refit and save. Called by POST /api/ai/retrain."""
+        """
+        SRS 5.6.7 CSV training governance — fits a CANDIDATE K-Means model
+        and returns it with a quality-metrics comparison (inertia,
+        silhouette score — see _METRICS_* comment above) against the
+        currently active version. Does NOT touch the model currently
+        serving cluster requests; call activate_version() to promote it.
+        Called from app.py's background training job (POST /api/ai/train).
+        """
         from data.data_cleaner     import DataCleaner
         from data.feature_engineer import FeatureEngineer
 
         cleaner = DataCleaner()
         fe      = FeatureEngineer()
 
-        clean_df, _ = cleaner.clean_gps_points(gps_df, min_points=10)
+        # Same formula cluster()'s own live path already uses (Config.KMEANS_N_CLUSTERS * 2,
+        # :134 above) rather than an independently hardcoded 10 — retrain() always fits at
+        # Config.KMEANS_N_CLUSTERS (below), so its minimum should track the same source of
+        # truth the serving path's minimum does, not drift from it if that constant ever
+        # changes. No behavior change at today's default (KMEANS_N_CLUSTERS=5 -> 10, same as
+        # the previous hardcoded value) — this closes the "hardcoded, can silently diverge"
+        # version of the gap, not a threshold-value bug the way forecasting.py's 30-vs-180 was.
+        min_points = Config.KMEANS_N_CLUSTERS * 2
+        clean_df, clean_stats = cleaner.clean_gps_points(gps_df, min_points=min_points)
         if clean_df is None:
-            return {'error': 'Insufficient GPS data'}
+            return {
+                'error': (
+                    f"Insufficient GPS data for retraining: "
+                    f"{clean_stats.get('output_rows', 0)} points < {min_points} required."
+                ),
+            }
 
         X = fe.get_cluster_features(clean_df)
-        self._fit(X, Config.KMEANS_N_CLUSTERS)
-        return {
-            'status':        'refitted',
-            'trainingPoints': len(clean_df),
-            'nClusters':     Config.KMEANS_N_CLUSTERS,
-            'fittedAt':      self._meta.get('fitted_at'),
+        model, meta = self._fit_model(X, Config.KMEANS_N_CLUSTERS)
+        labels = model.labels_
+        metrics = {
+            'inertia':         meta['inertia'],
+            'silhouetteScore': self._compute_silhouette(X, labels),
         }
+
+        candidate  = self._registry.save_version(model, metrics, meta, status='candidate')
+        comparison = build_comparison(
+            self._registry.get_active(), candidate,
+            lower_is_better=_METRICS_LOWER_BETTER,
+            higher_is_better=_METRICS_HIGHER_BETTER,
+        )
+
+        logger.info(
+            f"Candidate version {candidate['versionId']} created — "
+            f"inertia={metrics['inertia']}, silhouette={metrics['silhouetteScore']} "
+            f"(awaiting Activate Model)"
+        )
+        return {
+            'status':         'candidate',
+            'versionId':      candidate['versionId'],
+            'trainingPoints': len(clean_df),
+            'nClusters':      Config.KMEANS_N_CLUSTERS,
+            'metrics':        metrics,
+            'comparison':     comparison,
+        }
+
+    def activate_version(self, version_id: int) -> dict:
+        """Explicit admin action — promotes a candidate to the active, serving model."""
+        entry = self._registry.activate(version_id)
+        self._model   = self._registry.load_object(version_id)
+        self._meta    = entry['meta']
+        self._trained = True
+        logger.info(f"Clusterer: activated version {version_id}")
+        return entry
+
+    def rollback(self, version_id: Optional[int] = None) -> dict:
+        """Revert the active model. Defaults to the immediately-previous active version."""
+        entry = self._registry.rollback(version_id)
+        self._model   = self._registry.load_object(entry['versionId'])
+        self._meta    = entry['meta']
+        self._trained = True
+        logger.info(f"Clusterer: rolled back to version {entry['versionId']}")
+        return entry
+
+    def list_versions(self) -> list:
+        return self._registry.list_versions()
+
+    def assign_zones(self, df: pd.DataFrame) -> np.ndarray:
+        """
+        Assign each row's (latitude, longitude) to its nearest fitted
+        cluster centroid, using the SAME zones cluster()'s summaries
+        describe — without fitting a separate model just for this.
+
+        FR-33 (SRS 5.6.8) uses this to cross-reference historical
+        material-usage-by-location (Stage 1's
+        DataExtractor.get_material_usage_with_location) against the
+        existing demand-cluster zones.
+
+        get_cluster_features() confirms K-Means here is fit directly on
+        raw [latitude, longitude] — self._scaler is declared but never
+        actually used anywhere in this class — so no scaling step is
+        needed to match training-time feature space; a plain
+        self._model.predict() on raw lat/lng is exactly what cluster()
+        itself does for its own training data (see line where `labels =
+        self._model.predict(X)` is called).
+
+        Requires cluster() to have already been called at least once this
+        instance's lifetime (or a saved model loaded at init) — raises
+        rather than silently predicting against an unfit model, which
+        would produce meaningless zone ids.
+
+        Args:
+            df: DataFrame with [latitude, longitude] columns.
+
+        Returns:
+            numpy array of cluster ids, one per row of df, in row order.
+        """
+        if not self._trained or self._model is None:
+            raise RuntimeError(
+                "KMeansClusterer has no fitted model yet — call cluster() first."
+            )
+        if df is None or df.empty:
+            return np.array([], dtype=int)
+
+        from data.feature_engineer import FeatureEngineer
+        X = FeatureEngineer().get_cluster_features(df)
+        return self._model.predict(X)
 
     # ─────────────────────────────────────────────────────────────────────────
     # PRIVATE — FITTING
     # ─────────────────────────────────────────────────────────────────────────
 
     def _fit(self, X: np.ndarray, n_clusters: int) -> None:
-        """Fit K-Means on feature matrix X."""
+        """
+        Fit and immediately activate. Used only for the internal auto-refit
+        inside cluster() (keeping live DB/synthetic-sourced clusters
+        current) — not the admin-triggered CSV governance flow, so no
+        candidate gate applies here. Governed retraining goes through
+        retrain() + activate_version() instead (SRS 5.6.7).
+        """
+        model, meta = self._fit_model(X, n_clusters)
+        metrics = {
+            'inertia':         meta['inertia'],
+            'silhouetteScore': self._compute_silhouette(X, model.labels_),
+        }
+        self._model   = model
+        self._trained = True
+        self._meta    = meta
+        self._registry.save_version(model, metrics, meta, status='active')
+        logger.info(f"K-Means fitted — inertia={meta['inertia']}")
+
+    def _fit_model(self, X: np.ndarray, n_clusters: int):
+        """
+        Fit a fresh K-Means model on X. Pure — does not mutate
+        self._model/self._meta, so it's safe to use for candidate
+        evaluation without affecting what's currently serving cluster
+        requests.
+        """
         logger.info(f"Fitting K-Means: k={n_clusters}, n_points={len(X)}")
 
         # Use district centroids as warm-start seeds when available
         init = self._get_district_seeds(n_clusters)
 
+        # init is either the literal string 'k-means++' or a numpy array of
+        # warm-start seed coordinates — comparing an array to a string with
+        # == produces an element-wise array, not a bool, so check the type
+        # instead of using == directly.
+        using_kmeans_pp = isinstance(init, str) and init == 'k-means++'
+
         km = KMeans(
             n_clusters=n_clusters,
             init=init,
-            n_init=10 if init == 'k-means++' else 1,
+            n_init=10 if using_kmeans_pp else 1,
             max_iter=300,
             random_state=Config.KMEANS_RANDOM_STATE,
         )
         km.fit(X)
 
-        self._model   = km
-        self._trained = True
-        self._meta    = {
+        meta = {
             'n_clusters':    n_clusters,
             'training_rows': len(X),
             'inertia':       round(float(km.inertia_), 2),
             'fitted_at':     datetime.utcnow().isoformat() + 'Z',
         }
-        self._save_model()
-        logger.info(f"K-Means fitted — inertia={self._meta['inertia']}")
+        return km, meta
 
     def _get_district_seeds(self, n_clusters: int):
         """
@@ -401,30 +638,48 @@ class KMeansClusterer:
     # PRIVATE — PERSISTENCE
     # ─────────────────────────────────────────────────────────────────────────
 
-    def _save_model(self) -> None:
-        try:
-            MODEL_SAVE_PATH.parent.mkdir(parents=True, exist_ok=True)
-            with open(MODEL_SAVE_PATH, 'wb') as f:
-                pickle.dump(self._model, f)
-            with open(META_SAVE_PATH, 'wb') as f:
-                pickle.dump(self._meta, f)
-            logger.info(f"K-Means model saved to {MODEL_SAVE_PATH}")
-        except Exception as exc:
-            logger.warning(f"K-Means save failed: {exc}")
-
     def _load_saved_model(self) -> None:
-        if not MODEL_SAVE_PATH.exists() or not META_SAVE_PATH.exists():
+        """Load the currently active version from the registry, if any."""
+        active = self._registry.get_active() or self._migrate_legacy_model()
+        if active is None:
             return
         try:
-            with open(MODEL_SAVE_PATH, 'rb') as f:
-                self._model = pickle.load(f)
-            with open(META_SAVE_PATH, 'rb') as f:
-                self._meta = pickle.load(f)
+            self._model   = self._registry.load_object(active['versionId'])
+            self._meta    = active['meta']
             self._trained = True
             logger.info(
-                f"Loaded saved K-Means model "
-                f"(k={self._meta.get('n_clusters')}, "
+                f"Loaded saved K-Means model (version {active['versionId']}, "
+                f"k={self._meta.get('n_clusters')}, "
                 f"fitted {self._meta.get('fitted_at', 'unknown')})"
             )
         except Exception as exc:
             logger.warning(f"Could not load K-Means model: {exc}")
+
+    def _migrate_legacy_model(self) -> Optional[dict]:
+        """
+        One-time import of the pre-versioning fixed-path pickle (if present)
+        as version 1/active, so switching to the registry doesn't strand a
+        model that was already trained and serving before this change.
+        """
+        if not MODEL_SAVE_PATH.exists() or not META_SAVE_PATH.exists():
+            return None
+        try:
+            with open(MODEL_SAVE_PATH, 'rb') as f:
+                model = pickle.load(f)
+            with open(META_SAVE_PATH, 'rb') as f:
+                meta = pickle.load(f)
+            # Silhouette score can't be recomputed here — the training feature
+            # matrix wasn't persisted by the pre-versioning code path, only
+            # the fitted model. Comparisons against this one migrated version
+            # will show silhouetteScore: None; every version trained after
+            # this migration computes it normally.
+            metrics = {'inertia': meta.get('inertia'), 'silhouetteScore': None}
+            entry = self._registry.save_version(model, metrics, meta, status='active')
+            logger.info(
+                f"Migrated legacy kmeans_model.pkl into version registry "
+                f"as version {entry['versionId']}"
+            )
+            return entry
+        except Exception as exc:
+            logger.warning(f"Legacy K-Means model migration failed: {exc}")
+            return None
