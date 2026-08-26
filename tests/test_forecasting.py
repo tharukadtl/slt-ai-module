@@ -319,12 +319,17 @@ class TestFeatureEngineer:
         m = estimate_travel_minutes(10.0, avg_speed_kmh=40.0)
         assert m == 15
 
-    def test_build_distance_graph_structure(self, synth):
+    def test_build_distance_graph_structure(self):
         """Distance graph has correct keys and technician nodes."""
         from data.feature_engineer import FeatureEngineer
         from data.data_cleaner    import DataCleaner
+        from data.synthetic_data  import SyntheticDataGenerator
+        # Own generator, not the module-scoped `synth` fixture — this test's RNG
+        # draw must not depend on whichever other tests happened to run first and
+        # consume draws from a shared instance (see TestModelValidation's own note).
+        local_synth = SyntheticDataGenerator(seed=42)
         fe   = FeatureEngineer()
-        tech = DataCleaner().clean_technician_locations(synth.technician_locations(n=5))
+        tech = DataCleaner().clean_technician_locations(local_synth.technician_locations(n=5))
         graph = fe.build_distance_graph(tech, fault_lat=6.93, fault_lng=79.86)
 
         assert 'nodes'      in graph
@@ -510,6 +515,20 @@ class TestModelValidation:
     `_fit_model()` is used rather than `forecast()` because it is documented as
     pure (it does not mutate self._model/self._meta), so this test cannot
     disturb the model currently serving the other tests in this file.
+
+    Own generator, not the module-scoped `synth` fixture (found and fixed
+    2026-08-26). `synth` is shared by every test in this file via one
+    module-scoped SyntheticDataGenerator instance — every other test that calls
+    a generation method on it (raw_ts's own 220-day series, plus
+    test_build_distance_graph_structure/test_retrain_creates_candidate_not_active/
+    test_stale_model_triggers_auto_refit_on_forecast, each generating their own
+    series directly off the same shared instance) advances its RNG state, so
+    the 180-day series this test scored depended on which other tests happened
+    to run first — "seeded" did not mean "reproducible" here. Confirmed live:
+    `pytest -k mae_lt5` in isolation measured 51.2% accuracy; the full file, same
+    code, same seed, measured 27.5%. A fresh, locally-scoped generator makes this
+    test's own result independent of everything else in the file, run order or
+    subset.
     """
 
     TRAIN_DAYS   = 150
@@ -517,14 +536,16 @@ class TestModelValidation:
     MAE_TARGET      = 5.0
     ACCURACY_TARGET = 85.0
 
-    def test_mae_lt5_accuracy_gte85(self, synth):
+    def test_mae_lt5_accuracy_gte85(self):
         from models.forecasting    import ProphetForecaster, _PROPHET_AVAILABLE
         from data.data_cleaner     import DataCleaner
         from data.feature_engineer import FeatureEngineer
+        from data.synthetic_data   import SyntheticDataGenerator
 
         if not _PROPHET_AVAILABLE:
             pytest.skip("Prophet is not installed — model validation cannot run")
 
+        synth    = SyntheticDataGenerator(seed=42)
         full     = synth.fault_time_series(days=self.TRAIN_DAYS + self.HOLDOUT_DAYS)
         train_raw = full.iloc[:self.TRAIN_DAYS].copy()
         holdout   = full.iloc[self.TRAIN_DAYS:][['ds', 'y']].copy()
@@ -575,7 +596,7 @@ class TestModelValidation:
 # CSV TRAINING GOVERNANCE — SHEET 10_AI_MODULE, ROW AI-023 (FR-30 / SRS 5.6.7)
 # ═════════════════════════════════════════════════════════════════════════════
 
-def test_retrain_creates_candidate_not_active(synth, tmp_path):
+def test_retrain_creates_candidate_not_active(tmp_path):
     """
     AI-023 — retraining must produce a CANDIDATE and leave whatever is already
     ACTIVE serving live traffic untouched; promotion happens only through the
@@ -584,10 +605,16 @@ def test_retrain_creates_candidate_not_active(synth, tmp_path):
     Runs against a throwaway ModelVersionRegistry rooted in tmp_path so the real
     models/saved/versions/forecaster registry (which the running service loads
     on boot) is neither read nor written by this test.
+
+    Own generator, not the module-scoped `synth` fixture — see
+    TestModelValidation's docstring for why sharing it makes a test's result
+    depend on run order/subset rather than just its seed.
     """
     from models.forecasting    import ProphetForecaster
     from models.model_registry import ModelVersionRegistry
+    from data.synthetic_data   import SyntheticDataGenerator
 
+    synth      = SyntheticDataGenerator(seed=42)
     forecaster = ProphetForecaster()
     forecaster._registry = ModelVersionRegistry(tmp_path, 'forecaster')
 
@@ -627,7 +654,7 @@ def test_retrain_creates_candidate_not_active(synth, tmp_path):
 # AUTO-REFIT DATE STALENESS — SHEET 10_AI_MODULE, ROWS AI-001/AI-004
 # ═════════════════════════════════════════════════════════════════════════════
 
-def test_stale_model_triggers_auto_refit_on_forecast(synth, tmp_path):
+def test_stale_model_triggers_auto_refit_on_forecast(tmp_path):
     """
     AI-001/AI-004 — forecast()'s internal freshness auto-refit
     (should_retrain) must fire on date staleness alone, not just row-count
@@ -649,11 +676,17 @@ def test_stale_model_triggers_auto_refit_on_forecast(synth, tmp_path):
     isolation pattern as test_retrain_creates_candidate_not_active, so the
     real models/saved/versions/forecaster registry the running service loads
     on boot is neither read nor written by this test.
+
+    Own generator, not the module-scoped `synth` fixture — see
+    TestModelValidation's docstring for why sharing it makes a test's result
+    depend on run order/subset rather than just its seed.
     """
     from models.forecasting    import ProphetForecaster
     from models.model_registry import ModelVersionRegistry
+    from data.synthetic_data   import SyntheticDataGenerator
     from config                import Config
 
+    synth      = SyntheticDataGenerator(seed=42)
     forecaster = ProphetForecaster()
     forecaster._registry = ModelVersionRegistry(tmp_path, 'forecaster')
     # __init__ already loaded whatever's active in the REAL registry before
