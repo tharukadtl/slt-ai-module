@@ -322,15 +322,27 @@ class ProphetForecaster:
         self._model/self._meta, so it's safe to use for candidate evaluation
         without affecting what's currently serving forecasts.
         """
-        m = Prophet(**PROPHET_PARAMS)
+        # AI-003 (QA_Compliance_Consolidated_Report.md) — an 8-term yearly Fourier
+        # series is unidentifiable on under a year of training data and
+        # extrapolates away rather than fitting a real pattern. Guard both the
+        # built-in yearly_seasonality and the custom yearly_slt override behind
+        # the same threshold, rather than fitting a component the data can't
+        # support.
+        has_full_year = len(train_df) >= Config.YEARLY_SEASONALITY_MIN_DAYS
+        params = dict(PROPHET_PARAMS)
+        if not has_full_year:
+            params['yearly_seasonality'] = False
+        m = Prophet(**params)
 
         # Add Sri Lanka regressors
         for reg in EXTRA_REGRESSORS:
             if reg in train_df.columns:
                 m.add_regressor(reg, mode='multiplicative')
 
-        # Add Sri Lanka-specific yearly seasonality override (Fourier order 8)
-        m.add_seasonality(name='yearly_slt', period=365.25, fourier_order=8)
+        # Add Sri Lanka-specific yearly seasonality override (Fourier order 8) —
+        # only once there's a full year to identify it against.
+        if has_full_year:
+            m.add_seasonality(name='yearly_slt', period=365.25, fourier_order=8)
 
         # Fit
         m.fit(train_df[['ds', 'y'] + [r for r in EXTRA_REGRESSORS if r in train_df.columns]])

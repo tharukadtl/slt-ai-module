@@ -102,6 +102,14 @@ class Config:
     FORECAST_HORIZON_DAYS   : int   = int(os.getenv('FORECAST_HORIZON_DAYS', 30))
     # Spec §5.6.1: fall back to synthetic data when real history is < 6 months
     FORECAST_MIN_HISTORY_DAYS: int  = int(os.getenv('FORECAST_MIN_HISTORY_DAYS', 180))
+    # A distinct, larger threshold from FORECAST_MIN_HISTORY_DAYS above: that one
+    # gates whether forecasting runs at all, this one gates whether an annual
+    # seasonal component is even identifiable from the training window. An 8-term
+    # yearly Fourier series fit on under a year of data is unidentifiable and
+    # extrapolates away (QA_Compliance_Consolidated_Report.md, AI-003) — 365 is
+    # one full cycle, the minimum below which Prophet has never actually observed
+    # a full year to fit a yearly pattern against.
+    YEARLY_SEASONALITY_MIN_DAYS: int = int(os.getenv('YEARLY_SEASONALITY_MIN_DAYS', 365))
     KMEANS_N_CLUSTERS       : int   = int(os.getenv('KMEANS_N_CLUSTERS', 5))
     KMEANS_RANDOM_STATE     : int   = int(os.getenv('KMEANS_RANDOM_STATE', 42))
     ROUTE_SEARCH_RADIUS_KM  : float = float(os.getenv('ROUTE_SEARCH_RADIUS_KM', 50))
