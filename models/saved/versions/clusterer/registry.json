@@ -1,0 +1,410 @@
+{
+  "nextId": 278,
+  "versions": [
+    {
+      "versionId": 128,
+      "createdAt": "2026-08-12T18:46:26.319037Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-12T18:46:26.302129Z"
+      }
+    },
+    {
+      "versionId": 133,
+      "createdAt": "2026-08-12T18:56:06.450196Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-12T18:56:06.442842Z"
+      }
+    },
+    {
+      "versionId": 137,
+      "createdAt": "2026-08-12T18:58:53.217705Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-12T18:58:53.209627Z"
+      }
+    },
+    {
+      "versionId": 141,
+      "createdAt": "2026-08-12T19:01:09.887518Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-12T19:01:09.881470Z"
+      }
+    },
+    {
+      "versionId": 146,
+      "createdAt": "2026-08-12T19:05:31.578814Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100872
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-12T19:05:31.562736Z"
+      }
+    },
+    {
+      "versionId": 154,
+      "createdAt": "2026-08-13T14:52:47.614675Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-13T14:52:47.602719Z"
+      }
+    },
+    {
+      "versionId": 157,
+      "createdAt": "2026-08-14T10:46:31.167225Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100872
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-14T10:46:31.135176Z"
+      }
+    },
+    {
+      "versionId": 163,
+      "createdAt": "2026-08-15T11:04:57.879948Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100872
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-15T11:04:57.871235Z"
+      }
+    },
+    {
+      "versionId": 177,
+      "createdAt": "2026-08-20T05:11:02.689509Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100872
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-20T05:11:02.680950Z"
+      }
+    },
+    {
+      "versionId": 184,
+      "createdAt": "2026-08-20T05:14:27.472314Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-20T05:14:27.464224Z"
+      }
+    },
+    {
+      "versionId": 190,
+      "createdAt": "2026-08-20T05:15:44.172451Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-20T05:15:44.165558Z"
+      }
+    },
+    {
+      "versionId": 209,
+      "createdAt": "2026-08-21T05:44:33.466497Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100872
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-21T05:44:33.456610Z"
+      }
+    },
+    {
+      "versionId": 217,
+      "createdAt": "2026-08-25T08:08:48.835255Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-25T08:08:48.822023Z"
+      }
+    },
+    {
+      "versionId": 233,
+      "createdAt": "2026-08-25T09:12:51.066861Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-25T09:12:51.061689Z"
+      }
+    },
+    {
+      "versionId": 236,
+      "createdAt": "2026-08-25T09:13:15.430950Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 0.11,
+        "silhouetteScore": 0.8708690275100873
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 120,
+        "inertia": 0.11,
+        "fitted_at": "2026-08-25T09:13:15.427369Z"
+      }
+    },
+    {
+      "versionId": 237,
+      "createdAt": "2026-08-25T09:18:45.597809Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 4.69,
+        "silhouetteScore": 0.7936674478080737
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 414,
+        "inertia": 4.69,
+        "fitted_at": "2026-08-25T09:18:45.593261Z"
+      }
+    },
+    {
+      "versionId": 243,
+      "createdAt": "2026-08-25T09:19:06.637540Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 4.69,
+        "silhouetteScore": 0.7936674478080737
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 414,
+        "inertia": 4.69,
+        "fitted_at": "2026-08-25T09:19:06.631655Z"
+      }
+    },
+    {
+      "versionId": 251,
+      "createdAt": "2026-08-25T09:44:46.818813Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 4.69,
+        "silhouetteScore": 0.7936674478080737
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 414,
+        "inertia": 4.69,
+        "fitted_at": "2026-08-25T09:44:46.803160Z"
+      }
+    },
+    {
+      "versionId": 259,
+      "createdAt": "2026-08-26T13:03:54.947005Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 4.69,
+        "silhouetteScore": 0.7936674478080737
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 414,
+        "inertia": 4.69,
+        "fitted_at": "2026-08-26T13:03:54.940990Z"
+      }
+    },
+    {
+      "versionId": 267,
+      "createdAt": "2026-08-26T13:14:04.479726Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 4.69,
+        "silhouetteScore": 0.7936674478080739
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 414,
+        "inertia": 4.69,
+        "fitted_at": "2026-08-26T13:14:04.471708Z"
+      }
+    },
+    {
+      "versionId": 271,
+      "createdAt": "2026-09-02T05:02:02.108393Z",
+      "status": "archived",
+      "metrics": {
+        "inertia": 489.87,
+        "silhouetteScore": 0.48295934060648865
+      },
+      "meta": {
+        "n_clusters": 3,
+        "training_rows": 1000,
+        "inertia": 489.87,
+        "fitted_at": "2026-09-02T05:02:02.088449Z"
+      }
+    },
+    {
+      "versionId": 272,
+      "createdAt": "2026-09-02T05:02:02.252222Z",
+      "status": "archived",
+      "metrics": {
+        "inertia": 565.42,
+        "silhouetteScore": 0.48257182286952716
+      },
+      "meta": {
+        "n_clusters": 2,
+        "training_rows": 1000,
+        "inertia": 565.42,
+        "fitted_at": "2026-09-02T05:02:02.224624Z"
+      }
+    },
+    {
+      "versionId": 273,
+      "createdAt": "2026-09-02T05:02:02.397973Z",
+      "status": "archived",
+      "metrics": {
+        "inertia": 52.43,
+        "silhouetteScore": 0.710451873439554
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 1000,
+        "inertia": 52.43,
+        "fitted_at": "2026-09-02T05:02:02.374151Z"
+      }
+    },
+    {
+      "versionId": 274,
+      "createdAt": "2026-09-02T05:02:03.207730Z",
+      "status": "archived",
+      "metrics": {
+        "inertia": 24.58,
+        "silhouetteScore": 0.724353821471392
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 500,
+        "inertia": 24.58,
+        "fitted_at": "2026-09-02T05:02:03.197695Z"
+      }
+    },
+    {
+      "versionId": 275,
+      "createdAt": "2026-09-02T05:02:05.039099Z",
+      "status": "candidate",
+      "metrics": {
+        "inertia": 4.69,
+        "silhouetteScore": 0.7936674478080737
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 414,
+        "inertia": 4.69,
+        "fitted_at": "2026-09-02T05:02:05.033478Z"
+      }
+    },
+    {
+      "versionId": 276,
+      "createdAt": "2026-09-02T05:02:05.837741Z",
+      "status": "archived",
+      "metrics": {
+        "inertia": 50.11,
+        "silhouetteScore": 0.7260397375371019
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 1000,
+        "inertia": 50.11,
+        "fitted_at": "2026-09-02T05:02:05.819722Z"
+      }
+    },
+    {
+      "versionId": 277,
+      "createdAt": "2026-09-02T05:02:06.380457Z",
+      "status": "active",
+      "metrics": {
+        "inertia": 26.21,
+        "silhouetteScore": 0.7083497790804989
+      },
+      "meta": {
+        "n_clusters": 5,
+        "training_rows": 500,
+        "inertia": 26.21,
+        "fitted_at": "2026-09-02T05:02:06.366550Z"
+      }
+    }
+  ]
+}

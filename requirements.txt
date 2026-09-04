@@ -29,3 +29,10 @@ requests==2.32.3
 python-dotenv==1.0.1
 python-dateutil==2.9.0.post0
 gunicorn==22.0.0
+
+# ── Testing ─────────────────────────────────────────────────────────────────────
+# Was installed in the local dev venv but never recorded here — a fresh checkout
+# (CI, a new contributor) had no way to know pytest was needed at all. Caught by
+# actually running `pip install -r requirements.txt && pytest` in a clean
+# container, not assumed from the venv already having it (2026-09-03).
+pytest==9.1.1

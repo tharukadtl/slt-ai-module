@@ -160,13 +160,30 @@ def validate_longitude(value: Any, required: bool = True) -> ValidResult:
     return lng, None
 
 
-def validate_coords(lat_raw: Any, lng_raw: Any) -> Tuple[Optional[float], Optional[float], Optional[str]]:
+def _is_absent(value: Any) -> bool:
+    return value is None or str(value).strip() == ''
+
+
+def validate_coords(
+    lat_raw: Any, lng_raw: Any, required: bool = False
+) -> Tuple[Optional[float], Optional[float], Optional[str]]:
     """
     Validate both lat and lng together.
 
+    By default coordinates are optional as a pair: if both are absent, that's a
+    legitimate "no GPS available" report and passes with (None, None, None). If only
+    one is absent, that's a malformed request, not an optional omission, so it's still
+    rejected as required. Pass required=True for callers where a coordinate pair is
+    mandatory rather than optional (e.g. shortest-path routing, where both endpoints
+    are necessary inputs, not optional metadata).
+
     Returns:
-        (lat, lng, None) on success, (None, None, error_str) on failure.
+        (lat, lng, None) on success (including the both-absent case when not required),
+        (None, None, error_str) on failure.
     """
+    if not required and _is_absent(lat_raw) and _is_absent(lng_raw):
+        return None, None, None
+
     lat, err = validate_latitude(lat_raw, required=True)
     if err:
         return None, None, err
@@ -457,7 +474,7 @@ def validate_fault_list(
             errors.append(f"Item {i}: must be an object, got {type(item).__name__}")
             continue
 
-        lat, lng, coord_err = validate_coords(item.get('lat'), item.get('lng'))
+        lat, lng, coord_err = validate_coords(item.get('lat'), item.get('lng'), required=True)
         if coord_err:
             errors.append(f"Item {i}: {coord_err}")
             continue
@@ -577,7 +594,7 @@ def validate_route_request(args: dict) -> Tuple[dict, Optional[str]]:
     """
     Validate all parameters for GET /api/ai/optimize-route.
     """
-    lat, lng, err = validate_coords(args.get('lat'), args.get('lng'))
+    lat, lng, err = validate_coords(args.get('lat'), args.get('lng'), required=True)
     if err:
         return {}, err
 
@@ -592,6 +609,33 @@ def validate_route_request(args: dict) -> Tuple[dict, Optional[str]]:
         'lng':            lng,
         'limit':          limit,
         'available_only': available_only,
+    }, None
+
+
+def validate_shortest_path_request(body: dict) -> Tuple[dict, Optional[str]]:
+    """
+    Validate request body for POST /api/ai/shortest-path (FR-29, SRS 5.6.6).
+
+    Body: { currentLat, currentLng, faultLat, faultLng } — the
+    Technician's current live location and their assigned fault's
+    location, both within Sri Lanka bounds.
+    """
+    if not isinstance(body, dict):
+        return {}, "Request body must be a JSON object."
+
+    current_lat, current_lng, err = validate_coords(
+        body.get('currentLat'), body.get('currentLng'), required=True)
+    if err:
+        return {}, f"Technician current location — {err}"
+
+    fault_lat, fault_lng, err = validate_coords(
+        body.get('faultLat'), body.get('faultLng'), required=True)
+    if err:
+        return {}, f"Fault location — {err}"
+
+    return {
+        'currentLat': current_lat, 'currentLng': current_lng,
+        'faultLat':   fault_lat,   'faultLng':   fault_lng,
     }, None
 
 

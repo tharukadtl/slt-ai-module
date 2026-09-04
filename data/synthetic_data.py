@@ -202,7 +202,7 @@ class SyntheticDataGenerator:
                               ),
                 'priority':   self.rng.choice(['HIGH','MEDIUM','LOW'], p=[0.20,0.55,0.25]),
                 'created_at': created_at,
-                'branch_id':  int(self.rng.integers(1, 6)),
+                'opmc_id':    int(self.rng.integers(1, 6)),
             })
 
         df = pd.DataFrame(rows)
@@ -218,22 +218,22 @@ class SyntheticDataGenerator:
         Generate synthetic technician current GPS positions.
 
         Technicians are spread across Sri Lanka, mostly clustered
-        around urban centres and their branch offices.
+        around urban centres and their OPMC offices.
 
         Args:
             n: Number of technicians to generate.
 
         Returns:
-            DataFrame with [technician_id, full_name, phone, branch_id,
+            DataFrame with [technician_id, full_name, phone, opmc_id,
                             latitude, longitude, status, last_seen,
                             current_job_id].
         """
         tech_areas = [
-            (6.9271, 79.8612, 1, 0.15),   # Colombo branch
-            (7.2906, 80.6337, 2, 0.10),   # Kandy branch
-            (6.0535, 80.2210, 3, 0.10),   # Galle branch
-            (9.6615, 80.0255, 4, 0.12),   # Jaffna branch
-            (7.7170, 81.6924, 5, 0.12),   # Batticaloa branch
+            (6.9271, 79.8612, 1, 0.15),   # Colombo OPMC
+            (7.2906, 80.6337, 2, 0.10),   # Kandy OPMC
+            (6.0535, 80.2210, 3, 0.10),   # Galle OPMC
+            (9.6615, 80.0255, 4, 0.12),   # Jaffna OPMC
+            (7.7170, 81.6924, 5, 0.12),   # Batticaloa OPMC
         ]
 
         statuses = ['AVAILABLE','IN_PROGRESS','TRAVELLING','PAUSED','OFFLINE']
@@ -254,11 +254,11 @@ class SyntheticDataGenerator:
         now  = datetime.now()
 
         for i in range(min(n, len(sl_names))):
-            # Choose branch area
+            # Choose OPMC area
             area_idx = i % len(tech_areas)
-            clat, clng, branch_id, spread = tech_areas[area_idx]
+            clat, clng, opmc_id, spread = tech_areas[area_idx]
 
-            # GPS offset from branch centre
+            # GPS offset from OPMC centre
             lat = float(np.clip(
                 self.rng.normal(clat, spread),
                 Config.SL_LAT_MIN, Config.SL_LAT_MAX
@@ -283,8 +283,8 @@ class SyntheticDataGenerator:
                 'technician_id':  i + 1,
                 'full_name':      sl_names[i],
                 'phone':          f'07{self.rng.integers(10000000, 99999999):08d}',
-                'branch_id':      branch_id,
-                'branch_name':    ['Colombo','Kandy','Galle','Jaffna','Batticaloa'][branch_id-1],
+                'opmc_id':        opmc_id,
+                'opmc_name':      ['Colombo','Kandy','Galle','Jaffna','Batticaloa'][opmc_id-1],
                 'latitude':       round(lat, 6),
                 'longitude':      round(lng, 6),
                 'status':         status,
@@ -298,11 +298,11 @@ class SyntheticDataGenerator:
         return df
 
     # ─────────────────────────────────────────────────────────────────────────
-    # BRANCHES
+    # OPMCS
     # ─────────────────────────────────────────────────────────────────────────
 
-    def branches(self) -> pd.DataFrame:
-        """Return synthetic branch reference data."""
+    def opmcs(self) -> pd.DataFrame:
+        """Return synthetic OPMC reference data."""
         data = [
             {'id':1, 'name':'Colombo',     'region':'Western',    'code':'COL', 'lat':6.9271, 'lng':79.8612},
             {'id':2, 'name':'Kandy',       'region':'Central',    'code':'KAN', 'lat':7.2906, 'lng':80.6337},
@@ -326,12 +326,12 @@ class SyntheticDataGenerator:
                 'time_series':    DataFrame [ds, y],
                 'fault_gps':      DataFrame [id, latitude, longitude, ...],
                 'technicians':    DataFrame [technician_id, latitude, longitude, ...],
-                'branches':       DataFrame,
+                'opmcs':          DataFrame,
             }
         """
         return {
             'time_series':  self.fault_time_series(days=forecast_days),
             'fault_gps':    self.fault_gps_points(n=1000),
             'technicians':  self.technician_locations(n=25),
-            'branches':     self.branches(),
+            'opmcs':        self.opmcs(),
         }

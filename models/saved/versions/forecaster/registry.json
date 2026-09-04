@@ -1,0 +1,1649 @@
+{
+  "nextId": 62,
+  "versions": [
+    {
+      "versionId": 3,
+      "createdAt": "2026-07-23T04:03:49.147989Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T04:03:48.735426Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T04:03:48.735426Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T04:03:48.735426Z"
+        }
+      }
+    },
+    {
+      "versionId": 4,
+      "createdAt": "2026-07-23T04:03:51.134734Z",
+      "status": "archived",
+      "metrics": {
+        "mae": 5.69,
+        "rmse": 6.97,
+        "mape": 21.4,
+        "accuracy": 78.6,
+        "trainingDays": 540,
+        "lastTrained": "2026-07-23T04:03:50.958310Z"
+      },
+      "meta": {
+        "training_rows": 540,
+        "date_min": "2025-01-30",
+        "date_max": "2026-07-23",
+        "mean_y": 20.8,
+        "last_trained": "2026-07-23T04:03:50.958310Z",
+        "in_sample_metrics": {
+          "mae": 5.69,
+          "rmse": 6.97,
+          "mape": 21.4,
+          "accuracy": 78.6,
+          "trainingDays": 540,
+          "lastTrained": "2026-07-23T04:03:50.958310Z"
+        }
+      }
+    },
+    {
+      "versionId": 5,
+      "createdAt": "2026-07-23T04:19:47.566512Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T04:19:47.540232Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T04:19:47.540232Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T04:19:47.540232Z"
+        }
+      }
+    },
+    {
+      "versionId": 6,
+      "createdAt": "2026-07-23T06:16:29.814770Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T06:16:29.790018Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T06:16:29.790018Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T06:16:29.790018Z"
+        }
+      }
+    },
+    {
+      "versionId": 7,
+      "createdAt": "2026-07-23T09:33:17.907560Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T09:33:17.868899Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T09:33:17.868899Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T09:33:17.868899Z"
+        }
+      }
+    },
+    {
+      "versionId": 8,
+      "createdAt": "2026-07-23T10:56:25.811452Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T10:56:25.701718Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T10:56:25.701718Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T10:56:25.701718Z"
+        }
+      }
+    },
+    {
+      "versionId": 9,
+      "createdAt": "2026-07-23T10:58:11.742251Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T10:58:11.637652Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T10:58:11.637652Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T10:58:11.637652Z"
+        }
+      }
+    },
+    {
+      "versionId": 10,
+      "createdAt": "2026-07-23T14:11:33.495933Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T14:11:33.439986Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T14:11:33.439986Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T14:11:33.439986Z"
+        }
+      }
+    },
+    {
+      "versionId": 11,
+      "createdAt": "2026-07-23T14:24:34.451214Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T14:24:34.401219Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T14:24:34.401219Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T14:24:34.401219Z"
+        }
+      }
+    },
+    {
+      "versionId": 12,
+      "createdAt": "2026-07-23T17:17:02.254564Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T17:17:02.213026Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T17:17:02.213026Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T17:17:02.213026Z"
+        }
+      }
+    },
+    {
+      "versionId": 13,
+      "createdAt": "2026-07-23T17:17:45.149829Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 3.81,
+        "rmse": 4.83,
+        "mape": 18.2,
+        "accuracy": 81.8,
+        "trainingDays": 180,
+        "lastTrained": "2026-07-23T17:17:45.116511Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-01-25",
+        "date_max": "2026-07-23",
+        "mean_y": 20.23,
+        "last_trained": "2026-07-23T17:17:45.116511Z",
+        "cv_metrics": {
+          "mae": 3.81,
+          "rmse": 4.83,
+          "mape": 18.2,
+          "accuracy": 81.8,
+          "trainingDays": 180,
+          "lastTrained": "2026-07-23T17:17:45.116511Z"
+        }
+      }
+    },
+    {
+      "versionId": 15,
+      "createdAt": "2026-08-06T03:39:03.162730Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 5.8,
+        "rmse": 6.91,
+        "mape": 25.4,
+        "accuracy": 74.6,
+        "trainingDays": 180,
+        "lastTrained": "2026-08-06T03:39:03.099197Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-02-08",
+        "date_max": "2026-08-06",
+        "mean_y": 20.42,
+        "last_trained": "2026-08-06T03:39:03.099197Z",
+        "cv_metrics": {
+          "mae": 5.8,
+          "rmse": 6.91,
+          "mape": 25.4,
+          "accuracy": 74.6,
+          "trainingDays": 180,
+          "lastTrained": "2026-08-06T03:39:03.099197Z"
+        }
+      }
+    },
+    {
+      "versionId": 16,
+      "createdAt": "2026-08-06T03:41:24.162362Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 5.8,
+        "rmse": 6.91,
+        "mape": 25.4,
+        "accuracy": 74.6,
+        "trainingDays": 180,
+        "lastTrained": "2026-08-06T03:41:24.130433Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-02-08",
+        "date_max": "2026-08-06",
+        "mean_y": 20.42,
+        "last_trained": "2026-08-06T03:41:24.130433Z",
+        "cv_metrics": {
+          "mae": 5.8,
+          "rmse": 6.91,
+          "mape": 25.4,
+          "accuracy": 74.6,
+          "trainingDays": 180,
+          "lastTrained": "2026-08-06T03:41:24.130433Z"
+        }
+      }
+    },
+    {
+      "versionId": 17,
+      "createdAt": "2026-08-06T04:16:35.384572Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 5.8,
+        "rmse": 6.91,
+        "mape": 25.4,
+        "accuracy": 74.6,
+        "trainingDays": 180,
+        "lastTrained": "2026-08-06T04:16:35.344902Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-02-08",
+        "date_max": "2026-08-06",
+        "mean_y": 20.42,
+        "last_trained": "2026-08-06T04:16:35.344902Z",
+        "cv_metrics": {
+          "mae": 5.8,
+          "rmse": 6.91,
+          "mape": 25.4,
+          "accuracy": 74.6,
+          "trainingDays": 180,
+          "lastTrained": "2026-08-06T04:16:35.344902Z"
+        }
+      }
+    },
+    {
+      "versionId": 18,
+      "createdAt": "2026-08-12T14:36:38.403334Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 4.17,
+        "rmse": 5.02,
+        "mape": 20.7,
+        "accuracy": 79.3,
+        "trainingDays": 180,
+        "lastTrained": "2026-08-12T14:36:38.286415Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-02-14",
+        "date_max": "2026-08-12",
+        "mean_y": 20.23,
+        "last_trained": "2026-08-12T14:36:38.286415Z",
+        "cv_metrics": {
+          "mae": 4.17,
+          "rmse": 5.02,
+          "mape": 20.7,
+          "accuracy": 79.3,
+          "trainingDays": 180,
+          "lastTrained": "2026-08-12T14:36:38.286415Z"
+        }
+      }
+    },
+    {
+      "versionId": 19,
+      "createdAt": "2026-08-12T18:45:21.921767Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-12T18:45:21.655188Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-14",
+        "date_max": "2026-08-12",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-12T18:45:21.655188Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-12T18:45:21.655188Z"
+        }
+      }
+    },
+    {
+      "versionId": 20,
+      "createdAt": "2026-08-12T18:46:24.223766Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-12T18:46:24.074700Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-14",
+        "date_max": "2026-08-12",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-12T18:46:24.074700Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-12T18:46:24.074700Z"
+        }
+      }
+    },
+    {
+      "versionId": 21,
+      "createdAt": "2026-08-12T18:56:06.420276Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-12T18:56:06.114373Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-14",
+        "date_max": "2026-08-12",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-12T18:56:06.114373Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-12T18:56:06.114373Z"
+        }
+      }
+    },
+    {
+      "versionId": 22,
+      "createdAt": "2026-08-12T18:58:53.181940Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-12T18:58:53.010949Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-14",
+        "date_max": "2026-08-12",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-12T18:58:53.010949Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-12T18:58:53.010949Z"
+        }
+      }
+    },
+    {
+      "versionId": 23,
+      "createdAt": "2026-08-12T19:01:09.859698Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-12T19:01:09.715755Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-14",
+        "date_max": "2026-08-12",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-12T19:01:09.715755Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-12T19:01:09.715755Z"
+        }
+      }
+    },
+    {
+      "versionId": 24,
+      "createdAt": "2026-08-12T19:05:31.546890Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-12T19:05:31.396130Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-14",
+        "date_max": "2026-08-12",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-12T19:05:31.396130Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-12T19:05:31.396130Z"
+        }
+      }
+    },
+    {
+      "versionId": 25,
+      "createdAt": "2026-08-13T14:52:47.562473Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-13T14:52:47.436987Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-14",
+        "date_max": "2026-08-12",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-13T14:52:47.436987Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-13T14:52:47.436987Z"
+        }
+      }
+    },
+    {
+      "versionId": 26,
+      "createdAt": "2026-08-14T10:46:28.954604Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-14T10:46:28.808145Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-15",
+        "date_max": "2026-08-13",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-14T10:46:28.808145Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-14T10:46:28.808145Z"
+        }
+      }
+    },
+    {
+      "versionId": 27,
+      "createdAt": "2026-08-15T11:04:57.842633Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-15T11:04:57.731016Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-16",
+        "date_max": "2026-08-14",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-15T11:04:57.731016Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-15T11:04:57.731016Z"
+        }
+      }
+    },
+    {
+      "versionId": 28,
+      "createdAt": "2026-08-20T05:11:02.662039Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-20T05:11:02.470312Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-21",
+        "date_max": "2026-08-19",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-20T05:11:02.470312Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-20T05:11:02.470312Z"
+        }
+      }
+    },
+    {
+      "versionId": 29,
+      "createdAt": "2026-08-20T05:14:25.344788Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-20T05:14:25.143557Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-21",
+        "date_max": "2026-08-19",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-20T05:14:25.143557Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-20T05:14:25.143557Z"
+        }
+      }
+    },
+    {
+      "versionId": 30,
+      "createdAt": "2026-08-20T05:14:28.029811Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": null,
+        "rmse": null,
+        "accuracy": null
+      },
+      "meta": {
+        "training_rows": 40,
+        "date_min": "2026-07-11",
+        "date_max": "2026-08-19",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-20T05:14:28.029811Z",
+        "cv_metrics": {
+          "mae": null,
+          "rmse": null,
+          "accuracy": null
+        }
+      }
+    },
+    {
+      "versionId": 31,
+      "createdAt": "2026-08-20T05:15:44.137940Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-20T05:15:43.949073Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-21",
+        "date_max": "2026-08-19",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-20T05:15:43.949073Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-20T05:15:43.949073Z"
+        }
+      }
+    },
+    {
+      "versionId": 32,
+      "createdAt": "2026-08-20T05:15:44.775238Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": null,
+        "rmse": null,
+        "accuracy": null
+      },
+      "meta": {
+        "training_rows": 40,
+        "date_min": "2026-07-11",
+        "date_max": "2026-08-19",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-20T05:15:44.767249Z",
+        "cv_metrics": {
+          "mae": null,
+          "rmse": null,
+          "accuracy": null
+        }
+      }
+    },
+    {
+      "versionId": 33,
+      "createdAt": "2026-08-21T05:44:33.423131Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 60,
+        "lastTrained": "2026-08-21T05:44:33.166768Z"
+      },
+      "meta": {
+        "training_rows": 60,
+        "date_min": "2026-06-22",
+        "date_max": "2026-08-20",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-21T05:44:33.166768Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 60,
+          "lastTrained": "2026-08-21T05:44:33.166768Z"
+        }
+      }
+    },
+    {
+      "versionId": 34,
+      "createdAt": "2026-08-21T05:44:34.079450Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": null,
+        "rmse": null,
+        "accuracy": null
+      },
+      "meta": {
+        "training_rows": 40,
+        "date_min": "2026-07-12",
+        "date_max": "2026-08-20",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-21T05:44:34.071369Z",
+        "cv_metrics": {
+          "mae": null,
+          "rmse": null,
+          "accuracy": null
+        }
+      }
+    },
+    {
+      "versionId": 35,
+      "createdAt": "2026-08-25T08:07:49.856773Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 5.39,
+        "rmse": 6.5,
+        "mape": 24.9,
+        "accuracy": 75.1,
+        "trainingDays": 180,
+        "lastTrained": "2026-08-25T08:07:49.830939Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-02-27",
+        "date_max": "2026-08-25",
+        "mean_y": 20.66,
+        "last_trained": "2026-08-25T08:07:49.830939Z",
+        "cv_metrics": {
+          "mae": 5.39,
+          "rmse": 6.5,
+          "mape": 24.9,
+          "accuracy": 75.1,
+          "trainingDays": 180,
+          "lastTrained": "2026-08-25T08:07:49.830939Z"
+        }
+      }
+    },
+    {
+      "versionId": 36,
+      "createdAt": "2026-08-25T08:08:21.594969Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 5.39,
+        "rmse": 6.5,
+        "mape": 24.9,
+        "accuracy": 75.1,
+        "trainingDays": 180,
+        "lastTrained": "2026-08-25T08:08:21.477198Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-02-27",
+        "date_max": "2026-08-25",
+        "mean_y": 20.66,
+        "last_trained": "2026-08-25T08:08:21.477198Z",
+        "cv_metrics": {
+          "mae": 5.39,
+          "rmse": 6.5,
+          "mape": 24.9,
+          "accuracy": 75.1,
+          "trainingDays": 180,
+          "lastTrained": "2026-08-25T08:08:21.477198Z"
+        }
+      }
+    },
+    {
+      "versionId": 37,
+      "createdAt": "2026-08-25T08:13:31.604145Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 5.39,
+        "rmse": 6.5,
+        "mape": 24.9,
+        "accuracy": 75.1,
+        "trainingDays": 180,
+        "lastTrained": "2026-08-25T08:13:31.504565Z"
+      },
+      "meta": {
+        "training_rows": 180,
+        "date_min": "2026-02-27",
+        "date_max": "2026-08-25",
+        "mean_y": 20.66,
+        "last_trained": "2026-08-25T08:13:31.504565Z",
+        "cv_metrics": {
+          "mae": 5.39,
+          "rmse": 6.5,
+          "mape": 24.9,
+          "accuracy": 75.1,
+          "trainingDays": 180,
+          "lastTrained": "2026-08-25T08:13:31.504565Z"
+        }
+      }
+    },
+    {
+      "versionId": 38,
+      "createdAt": "2026-08-25T08:58:19.367265Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 7.03,
+        "rmse": 8.38,
+        "mape": 43.5,
+        "accuracy": 56.5,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T08:58:19.082998Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 20.47,
+        "last_trained": "2026-08-25T08:58:19.082998Z",
+        "cv_metrics": {
+          "mae": 7.03,
+          "rmse": 8.38,
+          "mape": 43.5,
+          "accuracy": 56.5,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T08:58:19.082998Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 39,
+      "createdAt": "2026-08-25T09:12:44.358765Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 7.03,
+        "rmse": 8.38,
+        "mape": 43.5,
+        "accuracy": 56.5,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:12:44.099461Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 20.47,
+        "last_trained": "2026-08-25T09:12:44.099461Z",
+        "cv_metrics": {
+          "mae": 7.03,
+          "rmse": 8.38,
+          "mape": 43.5,
+          "accuracy": 56.5,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:12:44.099461Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 40,
+      "createdAt": "2026-08-25T09:18:43.290335Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:18:43.180114Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-17",
+        "date_max": "2026-08-24",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-25T09:18:43.180114Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:18:43.180114Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 41,
+      "createdAt": "2026-08-25T09:18:45.814800Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:18:45.710481Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-17",
+        "date_max": "2026-08-24",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-25T09:18:45.710481Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:18:45.710481Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 42,
+      "createdAt": "2026-08-25T09:19:06.624420Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:19:06.420039Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-17",
+        "date_max": "2026-08-24",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-25T09:19:06.420039Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:19:06.420039Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 43,
+      "createdAt": "2026-08-25T09:19:07.052109Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:19:06.950220Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-17",
+        "date_max": "2026-08-24",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-25T09:19:06.950220Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:19:06.950220Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 44,
+      "createdAt": "2026-08-25T09:43:22.291710Z",
+      "status": "archived",
+      "metrics": {
+        "mae": 2.64,
+        "rmse": 3.43,
+        "mape": 17.1,
+        "accuracy": 82.9,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:43:22.270961Z"
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 20.47,
+        "last_trained": "2026-08-25T09:43:22.270961Z",
+        "in_sample_metrics": {
+          "mae": 2.64,
+          "rmse": 3.43,
+          "mape": 17.1,
+          "accuracy": 82.9,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:43:22.270961Z"
+        }
+      }
+    },
+    {
+      "versionId": 45,
+      "createdAt": "2026-08-25T09:43:41.843332Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 7.03,
+        "rmse": 8.38,
+        "mape": 43.5,
+        "accuracy": 56.5,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:43:41.571969Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 20.47,
+        "last_trained": "2026-08-25T09:43:41.571969Z",
+        "cv_metrics": {
+          "mae": 7.03,
+          "rmse": 8.38,
+          "mape": 43.5,
+          "accuracy": 56.5,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:43:41.571969Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 46,
+      "createdAt": "2026-08-25T09:44:22.887026Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 7.03,
+        "rmse": 8.38,
+        "mape": 43.5,
+        "accuracy": 56.5,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:44:22.671581Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 20.47,
+        "last_trained": "2026-08-25T09:44:22.671581Z",
+        "cv_metrics": {
+          "mae": 7.03,
+          "rmse": 8.38,
+          "mape": 43.5,
+          "accuracy": 56.5,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:44:22.671581Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 47,
+      "createdAt": "2026-08-25T09:44:39.378666Z",
+      "status": "archived",
+      "metrics": {
+        "mae": 5.85,
+        "rmse": 7.81,
+        "mape": 20.8,
+        "accuracy": 79.2,
+        "trainingDays": 540,
+        "lastTrained": "2026-08-25T09:44:39.349302Z"
+      },
+      "meta": {
+        "training_rows": 540,
+        "date_min": "2025-03-04",
+        "date_max": "2026-08-25",
+        "mean_y": 20.9,
+        "last_trained": "2026-08-25T09:44:39.349302Z",
+        "in_sample_metrics": {
+          "mae": 5.85,
+          "rmse": 7.81,
+          "mape": 20.8,
+          "accuracy": 79.2,
+          "trainingDays": 540,
+          "lastTrained": "2026-08-25T09:44:39.349302Z"
+        }
+      }
+    },
+    {
+      "versionId": 48,
+      "createdAt": "2026-08-25T09:44:46.803160Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:44:46.698426Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-17",
+        "date_max": "2026-08-24",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-25T09:44:46.698426Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:44:46.698426Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 49,
+      "createdAt": "2026-08-25T09:44:47.103735Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-25T09:44:46.981070Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-17",
+        "date_max": "2026-08-24",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-25T09:44:46.981070Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-25T09:44:46.981070Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 50,
+      "createdAt": "2026-08-26T12:41:29.743066Z",
+      "status": "archived",
+      "metrics": {
+        "mae": 2.59,
+        "rmse": 3.39,
+        "mape": 17.0,
+        "accuracy": 83.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T12:41:29.551731Z"
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-19",
+        "date_max": "2026-08-26",
+        "mean_y": 20.52,
+        "last_trained": "2026-08-26T12:41:29.551731Z",
+        "in_sample_metrics": {
+          "mae": 2.59,
+          "rmse": 3.39,
+          "mape": 17.0,
+          "accuracy": 83.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T12:41:29.551731Z"
+        }
+      }
+    },
+    {
+      "versionId": 51,
+      "createdAt": "2026-08-26T12:41:40.290104Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 7.07,
+        "rmse": 8.68,
+        "mape": 43.7,
+        "accuracy": 56.3,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T12:41:39.330940Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-19",
+        "date_max": "2026-08-26",
+        "mean_y": 20.52,
+        "last_trained": "2026-08-26T12:41:39.330940Z",
+        "cv_metrics": {
+          "mae": 7.07,
+          "rmse": 8.68,
+          "mape": 43.7,
+          "accuracy": 56.3,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T12:41:39.330940Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 52,
+      "createdAt": "2026-08-26T13:02:37.703070Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 7.07,
+        "rmse": 8.68,
+        "mape": 43.7,
+        "accuracy": 56.3,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T13:02:37.385683Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-19",
+        "date_max": "2026-08-26",
+        "mean_y": 20.52,
+        "last_trained": "2026-08-26T13:02:37.385683Z",
+        "cv_metrics": {
+          "mae": 7.07,
+          "rmse": 8.68,
+          "mape": 43.7,
+          "accuracy": 56.3,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T13:02:37.385683Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 53,
+      "createdAt": "2026-08-26T13:03:46.175268Z",
+      "status": "archived",
+      "metrics": {
+        "mae": 4.71,
+        "rmse": 5.9,
+        "mape": 25.2,
+        "accuracy": 74.8,
+        "trainingDays": 540,
+        "lastTrained": "2026-08-26T13:03:46.133004Z"
+      },
+      "meta": {
+        "training_rows": 540,
+        "date_min": "2025-03-05",
+        "date_max": "2026-08-26",
+        "mean_y": 20.71,
+        "last_trained": "2026-08-26T13:03:46.133004Z",
+        "in_sample_metrics": {
+          "mae": 4.71,
+          "rmse": 5.9,
+          "mape": 25.2,
+          "accuracy": 74.8,
+          "trainingDays": 540,
+          "lastTrained": "2026-08-26T13:03:46.133004Z"
+        }
+      }
+    },
+    {
+      "versionId": 54,
+      "createdAt": "2026-08-26T13:03:54.924975Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T13:03:54.766571Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-26T13:03:54.766571Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T13:03:54.766571Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 55,
+      "createdAt": "2026-08-26T13:03:55.629218Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T13:03:55.301875Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-26T13:03:55.301875Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T13:03:55.301875Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 56,
+      "createdAt": "2026-08-26T13:11:45.888497Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 2.59,
+        "rmse": 3.52,
+        "mape": 19.3,
+        "accuracy": 80.7,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T13:11:45.565939Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-19",
+        "date_max": "2026-08-26",
+        "mean_y": 20.52,
+        "last_trained": "2026-08-26T13:11:45.565939Z",
+        "cv_metrics": {
+          "mae": 2.59,
+          "rmse": 3.52,
+          "mape": 19.3,
+          "accuracy": 80.7,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T13:11:45.565939Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 57,
+      "createdAt": "2026-08-26T13:14:04.456025Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T13:14:04.268803Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 2.0,
+        "last_trained": "2026-08-26T13:14:04.268803Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T13:14:04.268803Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 58,
+      "createdAt": "2026-08-26T13:14:04.884184Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-08-26T13:14:04.735473Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-18",
+        "date_max": "2026-08-25",
+        "mean_y": 1.0,
+        "last_trained": "2026-08-26T13:14:04.735473Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-08-26T13:14:04.735473Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 59,
+      "createdAt": "2026-09-02T05:01:55.258402Z",
+      "status": "active",
+      "metrics": {
+        "mae": 3.84,
+        "rmse": 5.32,
+        "mape": 17.2,
+        "accuracy": 82.8,
+        "trainingDays": 540,
+        "lastTrained": "2026-09-02T05:01:55.218721Z"
+      },
+      "meta": {
+        "training_rows": 540,
+        "date_min": "2025-03-12",
+        "date_max": "2026-09-02",
+        "mean_y": 21.06,
+        "last_trained": "2026-09-02T05:01:55.218721Z",
+        "in_sample_metrics": {
+          "mae": 3.84,
+          "rmse": 5.32,
+          "mape": 17.2,
+          "accuracy": 82.8,
+          "trainingDays": 540,
+          "lastTrained": "2026-09-02T05:01:55.218721Z"
+        }
+      }
+    },
+    {
+      "versionId": 60,
+      "createdAt": "2026-09-02T05:02:05.017748Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-09-02T05:02:04.854765Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-25",
+        "date_max": "2026-09-01",
+        "mean_y": 2.0,
+        "last_trained": "2026-09-02T05:02:04.854765Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-09-02T05:02:04.854765Z",
+          "horizon": 30
+        }
+      }
+    },
+    {
+      "versionId": 61,
+      "createdAt": "2026-09-02T05:02:05.521217Z",
+      "status": "candidate",
+      "metrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": 0.0,
+        "accuracy": 100.0,
+        "trainingDays": 220,
+        "lastTrained": "2026-09-02T05:02:05.373360Z",
+        "horizon": 30
+      },
+      "meta": {
+        "training_rows": 220,
+        "date_min": "2026-01-25",
+        "date_max": "2026-09-01",
+        "mean_y": 1.0,
+        "last_trained": "2026-09-02T05:02:05.373360Z",
+        "cv_metrics": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "mape": 0.0,
+          "accuracy": 100.0,
+          "trainingDays": 220,
+          "lastTrained": "2026-09-02T05:02:05.373360Z",
+          "horizon": 30
+        }
+      }
+    }
+  ]
+}

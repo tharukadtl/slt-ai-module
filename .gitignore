@@ -47,6 +47,10 @@ logs/*.log.*
 logs/*.gz
 !logs/.gitkeep          # always keep the placeholder
 
+# ─── Local training-job state ──────────────────────────────────────────────────
+# training_job_store.py's on-disk job records — local runtime state, not source.
+data/jobs/*.json
+
 # ─── pytest / coverage ────────────────────────────────────────────────────────
 .pytest_cache/
 .coverage

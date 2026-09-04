@@ -1,0 +1,49 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install CmdStan (Prophet's Stan backend)
+        run: python -m cmdstanpy.install_cmdstan --verbose
+
+      # The Linux prophet==1.1.5 wheel bundles a stripped-down, runtime-only
+      # prophet/stan_model/cmdstan-2.33.1 (no makefile) meant only to run the
+      # wheel's own pre-built prophet_model.bin. cmdstanpy>=1.3.0's stricter
+      # validate_cmdstan_path() rejects it ("CmdStan installataion missing
+      # makefile"), and CmdStanPyBackend.__init__ unconditionally prefers this
+      # bundled copy over the properly-installed one above whenever it exists --
+      # so every forecast-backed endpoint fails with "AttributeError: 'Prophet'
+      # object has no attribute 'stan_backend'" regardless of install order.
+      # Removing the broken bundled copy makes it fall through to the real one.
+      # Confirmed by direct reproduction (prophet/models.py:CmdStanPyBackend),
+      # not assumed -- installing CmdStan before *or* after `pip install` alone
+      # did not fix this; only removing the incompatible bundled copy did.
+      - name: Remove prophet's incompatible bundled CmdStan runtime
+        run: |
+          python -c "
+          import prophet, pathlib
+          bundled = pathlib.Path(prophet.__file__).parent / 'stan_model' / 'cmdstan-2.33.1'
+          if bundled.exists():
+              import shutil
+              shutil.rmtree(bundled)
+              print(f'Removed incompatible bundled CmdStan at {bundled}')
+          else:
+              print('No bundled CmdStan found, nothing to remove')
+          "
+
+      - name: Run tests
+        run: python -m pytest tests/ -v

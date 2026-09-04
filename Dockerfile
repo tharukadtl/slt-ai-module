@@ -76,7 +76,8 @@ COPY --chown=sltai:sltai . .
 RUN mkdir -p \
         /app/models/saved \
         /app/logs \
-    && chown -R sltai:sltai /app/models /app/logs
+        /app/data/uploads \
+    && chown -R sltai:sltai /app/models /app/logs /app/data/uploads
 
 # Switch to non-root user
 USER sltai
@@ -84,10 +85,10 @@ USER sltai
 # Expose Flask port
 EXPOSE 5000
 
-# Health check — tests the /ping endpoint every 30s
+# Health check — tests the /health endpoint every 30s
 # Fails container if 3 consecutive checks fail (marks unhealthy in compose)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:5000/api/ai/health/ping || exit 1
+    CMD curl -f http://localhost:5000/api/ai/health || exit 1
 
 # Environment variable defaults (override in .env or docker-compose.yml)
 ENV FLASK_ENV=production \

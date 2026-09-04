@@ -95,14 +95,15 @@ def monkeypatch_session(request):
 def app():
     """
     Build and configure the Flask application once per session.
-    Registers all Blueprints if not already registered.
     Returns the configured Flask app (not a test client).
+
+    Note: app.py defines its routes directly (not via the routes/
+    Blueprint package — that package is an alternate, more granular
+    route layer that isn't wired into the running service). Tests must
+    exercise app.py's actual routes, so no blueprint registration
+    happens here.
     """
     import app as app_module
-
-    # Register blueprints (idempotent — skips already-registered ones)
-    from routes import register_blueprints
-    register_blueprints(app_module.app)
 
     app_module.app.config.update({
         'TESTING':                 True,
@@ -285,16 +286,6 @@ def classifier():
     """
     from models.classifier import FaultClassifier
     return FaultClassifier()
-
-
-@pytest.fixture(scope='session')
-def router():
-    """
-    DijkstraRouter singleton.
-    Pure Python — no heavy deps, cheap to construct.
-    """
-    from models.route_optimizer import DijkstraRouter
-    return DijkstraRouter()
 
 
 # ═════════════════════════════════════════════════════════════════════════════
