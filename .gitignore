@@ -2,6 +2,9 @@
 # .gitignore — SLT AI Module
 # ═══════════════════════════════════════════════════════════════════════════════
 
+# ─── Test reports ─────────────────────────────────────────────────────────────
+report.xml
+
 # ─── Environment & secrets ────────────────────────────────────────────────────
 # NEVER commit credentials, secrets, or environment files
 .env
