@@ -44,6 +44,60 @@ class SyntheticDataGenerator:
     # TIME-SERIES DATA (Prophet training)
     # ─────────────────────────────────────────────────────────────────────────
 
+    def expected_faults_for_date(
+        self,
+        d,
+        day_index: int,
+        base_faults_per_day: float = 18.0
+    ) -> float:
+        """
+        The noise-free expected daily fault count `fault_time_series` draws its Poisson
+        sample from, for date `d` at position `day_index` in its own series. Pulled out of
+        `fault_time_series` (2026-09-13, AI-003 investigation) so a caller — specifically
+        tests/test_forecasting.py's out-of-sample accuracy test — can compute the same
+        series' theoretical noise ceiling (the accuracy a model with perfect knowledge of
+        this expected value, i.e. zero model error, would score against the actual
+        Poisson-noised counts) without hand-duplicating this formula, which would silently
+        drift out of sync the next time this method's seasonality model changes. Pure
+        function, no RNG draw — deterministic given (d, day_index, base_faults_per_day).
+        """
+        # 1. Linear growth trend: ~8% per year
+        trend = 1.0 + (day_index / 365) * 0.08
+
+        # 2. Weekly seasonality: Mon(1.2)→Fri(1.1)→Sat(0.6)→Sun(0.5)
+        dow_factors = [1.2, 1.15, 1.1, 1.1, 1.1, 0.6, 0.5]
+        weekly      = dow_factors[d.dayofweek]
+
+        # 3. Monthly seasonality — Sri Lanka rainfall & usage patterns
+        monthly_factors = {
+            1: 1.15,  # Jan — NE monsoon, heavy rain = more outages
+            2: 1.05,
+            3: 0.95,
+            4: 1.10,  # Apr — pre-SW monsoon instability
+            5: 1.25,  # May — SW monsoon starts, peak faults
+            6: 1.30,  # Jun — peak SW monsoon
+            7: 1.25,
+            8: 1.20,
+            9: 1.10,  # Sep — SW monsoon tapering
+            10: 0.95,
+            11: 1.10, # Nov — NE monsoon starts
+            12: 1.20, # Dec — NE monsoon peak
+        }
+        monthly = monthly_factors.get(d.month, 1.0)
+
+        # 4. Public holiday effect (fewer reported faults)
+        is_holiday = (
+            (d.month == 1  and d.day == 1 ) or  # New Year
+            (d.month == 2  and d.day == 4 ) or  # Independence Day
+            (d.month == 4  and d.day in [13, 14]) or  # SL New Year
+            (d.month == 5  and d.day == 1 ) or  # May Day
+            (d.month == 12 and d.day == 25)     # Christmas
+        )
+        holiday_factor = 0.55 if is_holiday else 1.0
+
+        # 5. Combine all factors
+        return base_faults_per_day * trend * weekly * monthly * holiday_factor
+
     def fault_time_series(
         self,
         days: int = 540,
@@ -71,45 +125,8 @@ class SyntheticDataGenerator:
 
         counts = []
         for i, d in enumerate(dates):
-
-            # 1. Linear growth trend: ~8% per year
-            trend = 1.0 + (i / 365) * 0.08
-
-            # 2. Weekly seasonality: Mon(1.2)→Fri(1.1)→Sat(0.6)→Sun(0.5)
-            dow_factors = [1.2, 1.15, 1.1, 1.1, 1.1, 0.6, 0.5]
-            weekly      = dow_factors[d.dayofweek]
-
-            # 3. Monthly seasonality — Sri Lanka rainfall & usage patterns
-            monthly_factors = {
-                1: 1.15,  # Jan — NE monsoon, heavy rain = more outages
-                2: 1.05,
-                3: 0.95,
-                4: 1.10,  # Apr — pre-SW monsoon instability
-                5: 1.25,  # May — SW monsoon starts, peak faults
-                6: 1.30,  # Jun — peak SW monsoon
-                7: 1.25,
-                8: 1.20,
-                9: 1.10,  # Sep — SW monsoon tapering
-                10: 0.95,
-                11: 1.10, # Nov — NE monsoon starts
-                12: 1.20, # Dec — NE monsoon peak
-            }
-            monthly = monthly_factors.get(d.month, 1.0)
-
-            # 4. Public holiday effect (fewer reported faults)
-            is_holiday = (
-                (d.month == 1  and d.day == 1 ) or  # New Year
-                (d.month == 2  and d.day == 4 ) or  # Independence Day
-                (d.month == 4  and d.day in [13, 14]) or  # SL New Year
-                (d.month == 5  and d.day == 1 ) or  # May Day
-                (d.month == 12 and d.day == 25)     # Christmas
-            )
-            holiday_factor = 0.55 if is_holiday else 1.0
-
-            # 5. Combine all factors
-            expected = base_faults_per_day * trend * weekly * monthly * holiday_factor
-
-            # 6. Add Poisson noise (count data)
+            expected = self.expected_faults_for_date(d, i, base_faults_per_day)
+            # Add Poisson noise (count data)
             count = int(self.rng.poisson(max(expected, 1.0)))
             counts.append(count)
 

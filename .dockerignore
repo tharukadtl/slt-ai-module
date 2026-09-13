@@ -1,0 +1,27 @@
+# Referenced by Dockerfile's own comment ("COPY application source code / .dockerignore
+# excludes: .env, __pycache__, models/saved/*.pkl, logs/*, tests/") but never actually created --
+# without this file, `COPY . .` copies everything in the build context verbatim, including a
+# real .env (if one happens to exist there at build time, e.g. on the deploy VM) directly into
+# the image layer. Real secrets belong in the container's environment (docker-compose's env_file/
+# environment, itself sourced from a gitignored .env at deploy time), never baked into a layer.
+.env
+.env.*
+!.env.example
+
+__pycache__/
+*.pyc
+
+# Trained model artifacts -- persisted via the ai-models named volume at runtime, not baked in.
+models/saved/*.pkl
+
+logs/
+*.log
+
+tests/
+
+# Local dev / VCS noise irrelevant to the runtime image.
+venv/
+.venv/
+.git/
+.pytest_cache/
+*.egg-info/
