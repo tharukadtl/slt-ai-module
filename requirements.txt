@@ -36,3 +36,4 @@ gunicorn==22.0.0
 # actually running `pip install -r requirements.txt && pytest` in a clean
 # container, not assumed from the venv already having it (2026-09-03).
 pytest==9.1.1
+pytest-cov==7.1.0
