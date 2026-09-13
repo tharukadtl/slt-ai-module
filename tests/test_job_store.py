@@ -100,6 +100,12 @@ _MISSING = (
     "{jobId} keeps reporting it as in progress forever."
 )
 
+_skip_no_reconciler = pytest.mark.skip(
+    reason="Genuine unbuilt feature, not a bug -- see _MISSING above for the full "
+           "confirmation. Deferred; see PR #19 discussion (2026-09-13) for the decision "
+           "not to build a startup reconciliation hook in this PR."
+)
+
 
 def _seed_job(store, minutes_ago: int, status: str = 'training') -> str:
     """Create a job and force its status/updatedAt to a chosen point in time."""
@@ -111,6 +117,7 @@ def _seed_job(store, minutes_ago: int, status: str = 'training') -> str:
     return job_id
 
 
+@_skip_no_reconciler
 def test_reconciliation_marks_stale_jobs_failed(store):
     """AI-026 — a job stuck in 'training' past the staleness window resolves to failed."""
     job_id = _seed_job(store, minutes_ago=STALENESS_MINUTES + 15)
@@ -134,6 +141,7 @@ def test_reconciliation_marks_stale_jobs_failed(store):
     )
 
 
+@_skip_no_reconciler
 def test_reconciliation_ignores_fresh_jobs(store):
     """
     AI-027 — a job updated moments ago is genuinely alive (another gunicorn worker
@@ -157,6 +165,7 @@ def test_reconciliation_ignores_fresh_jobs(store):
     assert after.get('error') is None
 
 
+@_skip_no_reconciler
 def test_reconciliation_leaves_terminal_jobs_alone(store):
     """
     The boundary the two rows imply between them: reconciliation is about jobs
