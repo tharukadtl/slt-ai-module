@@ -73,3 +73,24 @@ jobs:
             htmlcov/
           retention-days: 30
           if-no-files-found: ignore
+
+  # Fires only for a real push to master with a green test job -- never for a PR run or a
+  # push to any other branch, matching the same "only master, only on success" convention
+  # fieldops/deploy.yml's own workflow_run trigger already enforces via its `branches: [master]`
+  # filter + `if: conclusion == 'success'` check. Uses a PAT (CROSS_REPO_DISPATCH_TOKEN), not the
+  # default GITHUB_TOKEN, because GITHUB_TOKEN cannot trigger a repository_dispatch (or anything
+  # else) in a different repository -- confirmed via GitHub's own docs on GITHUB_TOKEN's scope
+  # being limited to the repo the workflow runs in.
+  notify-deploy:
+    needs: test
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify fieldops (slt-backend) of a successful Test run
+        run: |
+          curl -sS -f -X POST \
+            -H "Authorization: Bearer ${{ secrets.CROSS_REPO_DISPATCH_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/tharukadtl/slt-backend/dispatches \
+            -d '{"event_type":"external-test-passed","client_payload":{"source_repo":"${{ github.repository }}","sha":"${{ github.sha }}"}}'
