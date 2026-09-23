@@ -74,6 +74,37 @@ jobs:
           retention-days: 30
           if-no-files-found: ignore
 
+  # Builds the exact image that deploy.yml pulls onto the VM -- CI builds and pushes it here so
+  # the production container is byte-for-byte what the test job above just tested, never rebuilt
+  # from source on the VM. Gated the same way notify-deploy already is (only master, only on a
+  # green test job) since a broken/PR build has no business landing in the registry.
+  build-and-push:
+    needs: test
+    if: success() && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push slt-ai-module image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ghcr.io/tharukadtl/slt-ai-module:${{ github.sha }}
+            ghcr.io/tharukadtl/slt-ai-module:latest
+
   # Fires only for a real push to master with a green test job -- never for a PR run or a
   # push to any other branch, matching the same "only master, only on success" convention
   # fieldops/deploy.yml's own workflow_run trigger already enforces via its `branches: [master]`
